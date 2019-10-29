@@ -1,6 +1,6 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" auto-complete="on" label-position="left">
+    <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
 
       <div class="title-container">
         <h3 class="title">
@@ -66,10 +66,6 @@ export default {
         account: 'admin',
         password: '111111',
         is_remember: false
-      },
-      loginRules: {
-        account: [{ required: true, message: 'Account is required', trigger: 'blur' }],
-        password: [{ required: true, message: 'Password is required', trigger: 'blur' }]
       },
       passwordType: 'password',
       capsTooltip: false,
