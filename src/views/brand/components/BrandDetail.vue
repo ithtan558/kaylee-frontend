@@ -4,32 +4,32 @@
       <div class="createPost-main-container">
         <el-row>
           <el-col :span="24">
-            <el-form-item label="Tên cửa hàng:">
+            <el-form-item label="Tên cửa hàng:" required>
               <el-input v-model="postForm.name" size="small" clearable remote placeholder="Tên cửa hàng" />
             </el-form-item>
-            <el-form-item label="Số điện thoại:">
+            <el-form-item label="Số điện thoại:" required>
               <el-input type="number" v-model="postForm.phone" size="small" clearable remote placeholder="Số điện thoại" />
             </el-form-item>
             <el-form-item label="Địa chỉ:">
               <el-input v-model="postForm.location" size="small" clearable remote placeholder="Địa chỉ" />
             </el-form-item>
-            <el-form-item label="Thành phố:">
+            <el-form-item label="Thành phố:" required>
               <el-select size="small" clearable remote placeholder="Thành phố:" v-model="postForm.city_id" @change="handelForDistrict">
                 <el-option v-for="(item) in cities" :key="item.id" :label="item.name" :value="item.id" />
               </el-select>
             </el-form-item>
-            <el-form-item label="Quận/Huyện:">
+            <el-form-item label="Quận/Huyện:" required>
               <el-select size="small" clearable remote placeholder="Quận/Huyện:" v-model="postForm.district_id">
                 <el-option v-for="(item) in districts" :key="item.id" :label="item.name" :value="item.id" />
               </el-select>
             </el-form-item>
-            <el-form-item label="Giờ mở cửa:">
+            <el-form-item label="Giờ mở cửa:" required>
               <el-time-select v-model="postForm.start_time" placeholder="Mở cửa">
               </el-time-select>
               <el-time-select v-model="postForm.end_time" placeholder="Đóng cửa">
               </el-time-select>
             </el-form-item>
-            <el-form-item label="Image:" prop="image">
+            <el-form-item label="Hình ảnh:" prop="image">
               <el-upload
                 action=""
                 list-type="picture-card"
@@ -40,8 +40,6 @@
                 :multiple="false"
                 :limit="1"
               >
-                <i class="el-icon-plus" />
-                <div slot="tip" class="el-upload__tip">Only accept: *.jpeg,bmp,png,gif,jpg</div>
               </el-upload>
             </el-form-item>
           </el-col>
@@ -49,31 +47,43 @@
         <div class="clearfix" />
         <br>
         <el-form-item class="text-center">
-          <el-button icon="el-icon-check" size="mini" type="primary" @click="submitForm">Submit</el-button>
+          <el-button icon="el-icon-check" size="mini" type="primary" @click="submitForm">Tạo</el-button>
           <router-link :to="'/brand'">
             <el-button icon="el-icon-back" size="mini" type="info">Back</el-button>
           </router-link>
-          <el-button type="danger" @click="confirmDelete">Confirm</el-button>
+          <el-button v-if="postForm.id" type="danger" size="mini" @click="showPopup(postForm.id)">Xóa</el-button>
         </el-form-item>
       </div>
     </el-form>
+    <el-dialog
+      title="Warning"
+      :visible.sync="dialogVisible"
+      width="30%"
+      center
+    >
+      <span>Bạn có muốn xóa dử liệu này ?</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">Không</el-button>
+        <el-button type="danger" @click="confirmDelete">Có</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import { fetchListCity } from '@/api/city'
 import { fetchListDistrict, fetchListDistrictByCityId } from '@/api/district'
-import { fetchBrand, create } from '@/api/brand'
+import { fetchBrand, create, deleteItem } from '@/api/brand'
 
 const defaultForm = {
   id: undefined,
   name: '',
-  description: '',
-  address: '',
-  city_id: null,
-  district_id: null,
-  start_time: null,
-  end_time: null,
+  phone: '',
+  location: '',
+  city_id: '',
+  district_id: '',
+  start_time: '',
+  end_time: '',
   image: ''
 }
 
@@ -94,7 +104,8 @@ export default {
       tempRoute: {},
       cities: [],
       districts: [],
-      imageFileList: []
+      imageFileList: [],
+      dialogVisible: false
     }
   },
   computed: {
@@ -116,7 +127,7 @@ export default {
         this.postForm = response.data
         if (response.data.image != null) {
           this.imageFileList.push({
-            url: process.env.VUE_APP_API + '/upload/images/' + response.data.image
+            url: process.env.VUE_APP_API + process.env.DIR_UPLOAD + response.data.image
           })
           console.log(this.imageFileList)
         }
@@ -192,16 +203,20 @@ export default {
         }
       })
     },
+    showPopup(id) {
+      this.dialogVisible = true
+      this.id = id
+    },
     confirmDelete() {
-      deleteItem(this.uuid).then(response => {
+      deleteItem(this.id).then(response => {
         this.$notify({
           message: response.message,
           type: 'success'
         })
       })
       this.dialogVisible = false
-      this.getList()
-    },
+      this.$router.push({ path: '/brand/' })
+    }
   }
 }
 </script>

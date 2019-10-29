@@ -1,0 +1,101 @@
+<template>
+  <div class="app-container">
+    <div class="createPost-main-container">
+      <el-row :gutter="10">
+        <el-col :xs="24" :sm="14">
+          <h3 class="text-center mr-0">Lịch sử đơn hàng</h3>
+          <el-container class="mrt-15">
+            <el-row class="w100">
+              <el-col :xs="24">
+                <el-card class="box-card w100" v-for="item in list" :key="item.id">
+                  <div slot="header" class="clearfix">
+                    <span>{{item.name}}</span>
+                    <span class="fr">#{{item.code}}</span>
+                  </div>
+                  <div class="text item" :span="24">
+                    <div class="time">Thời gian : {{item.created_at}}</div>
+                    <div><b>Chi tiết đơn hàng</b></div>
+                    <div>Dịch vụ sử dụng</div>
+                    <div class="body-service">
+                      <div class="item-service" v-for="itemOrderDetail in item.order_details" :key="itemOrderDetail.id">
+                        <span class="fl">{{itemOrderDetail.name}}</span>
+                        <span class="fr price">{{itemOrderDetail.total | formatMoney}}</span>
+                        <span class="fr">{{itemOrderDetail.quantity}}</span>
+                        <br class="clear">
+                      </div>
+                    </div>
+                    <div class="total color-red fr"><b>{{item.amount | formatMoney}}</b></div>
+                  </div>
+                </el-card>
+              </el-col>
+            </el-row>
+
+            <el-row>
+              <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
+            </el-row>
+          </el-container>
+        </el-col>
+      </el-row>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.box-card {
+  margin-bottom: 10px;
+  .item {
+    > div {
+      margin: 5px 0px;
+      span {
+        margin: 2px 0px 2px 10px;
+      }
+      .price {
+        width: 100px;
+        text-align: right;
+      }
+    }
+  }
+}
+</style>
+
+<script>
+import 'element-ui/lib/theme-chalk/display.css'
+import { fetchList } from '@/api/order'
+
+export default {
+  name: 'OrderHistory',
+  data() {
+    return {
+      tableKey: 0,
+      list: [],
+      total: 0,
+      listLoading: true,
+      listQuery: {
+        page: 1,
+        limit: 10,
+        importance: undefined,
+        title: undefined,
+        type: undefined,
+        sort: '+_id'
+      },
+      dialogVisible: false
+    }
+  },
+  created() {
+    this.getList()
+  },
+  methods: {
+    getList() {
+      this.listLoading = true
+      fetchList(this.listQuery).then(response => {
+
+        this.list = response.data.items
+
+        this.total = response.data.total
+        // Just to simulate the time of the request
+        this.listLoading = false
+      })
+    }
+  }
+}
+</script>

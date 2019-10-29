@@ -2,7 +2,7 @@
   <div class="app-container">
     <div class="createPost-main-container">
       <el-row :gutter="10">
-        <el-col :span="10">
+        <el-col :span="10" class="hidden-xs-only">
           <div class="panel panel-flat">
             <div class="panel-heading">
               <div class="customer-block-title select-inside-heading">
@@ -85,382 +85,132 @@
             </div>
           </div>
         </el-col>
-        <el-col :span="14">
+        <el-col :xs="24" :sm="14">
           <div class="panel panel-flat">
             <div class="panel-heading pt-5-important pb-5-important">
-              <div class="customer-block-title select-inside-heading">
-                <el-input placeholder="Tìm kiếm theo tên hoặc mã sản phẩm & dịch vụ"></el-input>
-              </div>
+              <el-input v-model="listQuery.keyword" placeholder="Tìm kiếm theo tên hoặc mã sản phẩm">
+                <el-button slot="append" icon="el-icon-search" @click="getListService"></el-button>
+              </el-input>
             </div>
             <div class="panel-body" style="position: relative">
               <div class="title-service-product mrt-10">
-                <el-tabs type="card" @tab-click="handleClick">
-                  <el-tab-pane class="icon-service" label="Dịch vụ">
-                    <ul class="product-grid">
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
+                <div class="product-grid">
+                  <el-col v-for="item in listService" :key="item.id" class="grid-two-column" :xs="24" :sm="14">
+                    <div class="product-image fl" v-bind:style="{ 'background-image': 'url(' + item.image + ')' }"></div>
+                    <div class="fl" style="width: calc(100% - 82px);height: 100%;padding: 10px;">
+                      <div class="product-name-action">
+                        <div class="product-name fl">{{item.name}}</div>
+                        <div class="product-action fr">
+                          <el-button size="mini" type="primary" @click="addToCart(item)">Chọn</el-button>
                         </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
+                        <br class="clear" />
+                      </div>
+                      <div class="sku-price">
+                        <div class="product-sku fl">{{item.code}}</div>
+                        <div class="price fr">
+                          <span class="cash">{{item.price | formatMoney}}</span>
                         </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/dnyjexdnmw33-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Trị mụn
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              DV218111
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">120.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </el-tab-pane>
-                  <el-tab-pane icon="el-icon-s-shop"  label="Sản phẩm">
-                    <ul class="product-grid">
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/8234q9rqmwns-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Tẩy trang Ohui
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              SP218115
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">620.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/8234q9rqmwns-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Tẩy trang Ohui
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              SP218115
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">620.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/8234q9rqmwns-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Tẩy trang Ohui
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              SP218115
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">620.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/8234q9rqmwns-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Tẩy trang Ohui
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              SP218115
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">620.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/8234q9rqmwns-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Tẩy trang Ohui
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              SP218115
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">620.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/8234q9rqmwns-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Tẩy trang Ohui
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              SP218115
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">620.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/8234q9rqmwns-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Tẩy trang Ohui
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              SP218115
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">620.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                      <li class="grid-two-column">
-                        <div class="product-image fl" style="background-image: url(https://s3-ap-northeast-1.amazonaws.com/salonherodev/PROD/Common/Default_Data/Spa/8234q9rqmwns-300x300.jpg)"></div>
-                        <div class="fl" style="width: calc(100% - 82px)">
-                          <div class="product-name">
-                            Tẩy trang Ohui
-                          </div>
-                          <div class="sku-price">
-                            <div class="product-sku fl">
-                              SP218115
-                            </div>
-                            <div class="price fr">
-                              <span class="cash">620.000 đ</span>
-                            </div>
-                            <br class="clear" />
-                          </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </el-tab-pane>
-                </el-tabs>
+                        <br class="clear" />
+                      </div>
+                    </div>
+                  </el-col>
+                </div>
+                <div>
+                  <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getListService" />
+                </div>
               </div>
             </div>
           </div>
         </el-col>
       </el-row>
     </div>
+    <div id="footer">
+      <span class="fl"><b class="color-red">{{cartItems.length}}</b> Dịch vụ và sản phẩm được chọn</span>
+      <el-button class="fr" size="mini" type="primary" @click="showPopupKindOfCustomer">{{ $t('start')}}</el-button>
+    </div>
+    <!-- Select kind of customer popup -->
+    <el-dialog :visible.sync="popupKindOfCustomerVisible" width="80%">
+      <el-form ref="ruleForm" label-width="120px" class="demo-ruleForm">
+        <el-container>
+          <el-row>
+            <el-col :xs="24" class="mrb-10 text-center"><el-button type="primary" @click="popupFindCustomerVisible = true, popupKindOfCustomerVisible = false">Tìm theo số điện thoại</el-button></el-col>
+            <el-col :xs="24" class="mrb-10 text-center"><el-button type="primary" @click="popupNewCustomerVisible = true, popupKindOfCustomerVisible = false">Tạo khách hàng</el-button></el-col>
+            <el-col :xs="24" class="mrb-10 text-center"><el-button type="primary" @click="setCustomerForCart(''), popupKindOfCustomerVisible = false">Khách lẻ</el-button></el-col>
+            <el-col :xs="24" class="mrb-10 text-center"><el-button @click="popupKindOfCustomerVisible = false">Hủy</el-button></el-col>
+          </el-row>
+        </el-container>
+      </el-form>
+    </el-dialog>
+
+    <!-- Select find customer by phone -->
+    <el-dialog :visible.sync="popupFindCustomerVisible" width="80%">
+      <el-form ref="ruleForm" label-width="120px" class="demo-ruleForm">
+        <el-row>
+          <el-input v-model="findCustomer.keyword" placeholder="Nhập số điện thoại"></el-input>
+        </el-row>
+        <el-row>
+          <ul class="list-customer">
+            <li v-for="item in customers" :key="item.id" @click="setCustomerForCart(item),popupFindCustomerVisible = false ">
+              <span class="fl text-left">{{item.name}}</span>
+              <span class="fr text-right">{{item.phone}}</span>
+              <br class="clear">
+            </li>
+          </ul>
+        </el-row>
+        <el-row class="text-center">
+          <el-button type="primary" class="mrt-10" @click="findListCustomer">Tìm khách hàng</el-button>
+        </el-row>
+      </el-form>
+    </el-dialog>
+
+    <!-- Select create a new customer -->
+    <el-dialog :visible.sync="popupNewCustomerVisible" width="80%">
+      <el-form ref="ruleForm" label-width="120px" class="demo-ruleForm">
+        <el-container>
+          <el-row>
+            <el-col :xs="24">
+              <el-input class="mrb-10 text-center" v-model="createCustomer.name" placeholder="Nhập họ tên"></el-input>
+            </el-col>
+            <el-col :xs="24">
+              <el-input class="mrb-10 text-center" v-model="createCustomer.phone" placeholder="Nhập số điện thoại"></el-input>
+            </el-col>
+            <el-col :xs="24">
+              <el-input class="mrb-10 text-center" v-model="createCustomer.email" placeholder="Nhập email (nếu có)"></el-input>
+            </el-col>
+            <el-col :xs="24" class="text-center">
+              <el-button class="mrb-10" type="primary" @click="setCustomerForCart(createCustomer), popupNewCustomerVisible = false">Tiếp theo</el-button>
+            </el-col>
+          </el-row>
+        </el-container>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
+<style>
+  .list-customer li {
+    border-bottom: 1px solid #DCDFE6;
+    padding: 5px 0px;
+  }
+  .list-customer li:last-child {
+    border-bottom: none;
+  }
+</style>
+
 <script>
+import 'element-ui/lib/theme-chalk/display.css'
+import { fetchList as fetchListService } from '@/api/service'
+import { getCustomer } from '@/api/customer'
+import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+import Cookies from 'js-cookie'
 
 export default {
   name: 'Order',
+  components: { Pagination },
   data() {
     return {
       tableKey: 0,
-      list: null,
+      listService: null,
       total: 0,
       listLoading: true,
       listQuery: {
@@ -471,13 +221,82 @@ export default {
         type: undefined,
         sort: '+_id'
       },
-      uuid: null,
-      dialogVisible: false
+      dialogVisible: false,
+      tableData: [],
+      cartItems: [],
+      findCustomer: {
+        keyword: null
+      },
+      customers: [],
+      createCustomer: {
+        name: '',
+        phone: '',
+        email: ''
+      },
+      popupKindOfCustomerVisible: false,
+      popupFindCustomerVisible: false,
+      popupNewCustomerVisible: false
     }
   },
   created() {
+    this.getListService()
+
+    // Load cart if exist before
+    if (Cookies.get('cartItems')) {
+      this.cartItems = JSON.parse(Cookies.get('cartItems'))
+    }
   },
   methods: {
+    setCustomerForCart(item) {
+      Cookies.set('cartCustomer', JSON.stringify(item))
+      this.$router.push({ path: '/order/cart' })
+    },
+    findListCustomer() {
+      getCustomer(this.findCustomer).then(response => {
+        this.customers = response.data
+      })
+    },
+    showPopupKindOfCustomer() {
+      // Check empty cart
+      const cartItems = JSON.parse(Cookies.get('cartItems'));
+      if (cartItems.length == 0) {
+        this.$notify({
+          dangerouslyUseHTMLString: true,
+          message: 'Không có dịch vụ nào trong giỏ hàng',
+          type: 'error'
+        })
+        return
+      }
+      this.popupKindOfCustomerVisible = true
+    },
+    getListService() {
+      this.listLoading = true
+      fetchListService(this.listQuery).then(response => {
+        this.listService = response.data.items
+        this.listService.forEach(element => {
+          element.image = process.env.VUE_APP_API + '/upload/images/' + element.image
+        })
+        this.total = response.data.total
+        // Just to simulate the time of the request
+        this.listLoading = false
+      })
+    },
+    // Add Items to cart
+    addToCart(itemToAdd) {
+      // Add the item or increase qty
+      const itemInCart = this.cartItems.filter(item => item.id === itemToAdd.id)
+      const isItemInCart = itemInCart.length > 0
+
+      if (isItemInCart === false) {
+        itemToAdd.qty = 1
+        this.cartItems.push(itemToAdd)
+      } else {
+        itemInCart[0].qty += 1
+      }
+
+      console.log(this.cartItems)
+      Cookies.set('cartItems', JSON.stringify(this.cartItems))
+    }
   }
 }
 </script>

@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export function fetchList(query) {
   return request({
-    url: '/service',
+    url: '/customer',
     method: 'get',
     params: query
   })
@@ -10,32 +10,30 @@ export function fetchList(query) {
 
 export function create(isEdit, data, id) {
   return request({
-    url: isEdit ? '/service/' + id : '/service',
+    url: isEdit ? '/customer/' + id : '/customer',
     method: isEdit ? 'post' : 'post',
-    config: { headers: { 'Content-Type': 'multipart/form-data' }},
-    timeout: 10 * 60 * 1000,
     data: data
   })
 }
 
-export function fetchService(id) {
+export function fetchCustomer(id) {
   return request({
-    url: '/service/' + id,
+    url: '/customer/' + id,
     method: 'get'
   })
 }
 
 export function deleteItem(id) {
   return request({
-    url: '/service/delete/' + id,
+    url: '/customer/delete/' + id,
     method: 'delete'
   })
 }
 
-export function fetchAll() {
+export function getCustomer(query) {
   return request({
-    url: '/service/all',
-    method: 'get'
+    url: '/customer/get-by-phone-and-name',
+    method: 'get',
+    params: query
   })
 }
-

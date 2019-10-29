@@ -4,40 +4,22 @@
       <div class="createPost-main-container">
         <el-row>
           <el-col :span="24">
-            <el-form-item label="Tên dịch vụ:">
-              <el-input v-model="postForm.name" size="small" clearable remote placeholder="Tên dịch vụ" />
+            <el-form-item label="Tên khách hàng:">
+              <el-input v-model="postForm.name" size="small" clearable remote placeholder="Tên khách hàng" />
             </el-form-item>
-            <el-form-item label="Mã dịch vụ:">
-              <el-input v-model="postForm.code" size="small" clearable remote placeholder="Mã dịch vụ" />
+            <el-form-item label="Số điện thoại:">
+              <el-input v-model="postForm.phone" size="small" clearable remote placeholder="Số điện thoại" />
             </el-form-item>
-            <el-form-item label="Loại dịch vụ:">
-              <el-select v-model="postForm.category_id" placeholder="Select" clearable style="width: 400px;">
-                <el-option
-                  v-for="item in categories"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
+            <el-form-item label="Email:">
+              <el-input v-model="postForm.email" size="small" clearable remote placeholder="Email" />
             </el-form-item>
-            <el-form-item label="Chi nhánh:">
-              <el-select v-model="postForm.brand_ids" multiple placeholder="Select" clearable style="width: 400px;">
-                <el-option
-                  v-for="item in brands"
-                  :key="item.value"
-                  :label="item.label"
-                  :value="item.value"
-                />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="Thời gian phục vụ:">
-              <el-input v-model="postForm.time" size="small" clearable remote placeholder="Thời gian phục vụ" />
-            </el-form-item>
-            <el-form-item label="Giá:">
-              <el-input type="number" v-model="postForm.price" size="small" clearable remote placeholder="Giá" />
-            </el-form-item>
-            <el-form-item label="Mô tả:">
-              <el-input v-model="postForm.description" size="small" clearable remote placeholder="Mô tả" />
+            <el-form-item label="Năm sinh:">
+              <el-date-picker
+                v-model="postForm.birthday"
+                type="date"
+                format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
             </el-form-item>
             <el-form-item label="Hình ảnh:" prop="image">
               <el-upload
@@ -58,10 +40,10 @@
         <br>
         <el-form-item class="text-center">
           <el-button icon="el-icon-check" size="mini" type="primary" @click="submitForm">Tạo</el-button>
-          <router-link :to="'/service'">
+          <router-link :to="'/customer'">
             <el-button icon="el-icon-back" size="mini" type="info">Quay lại</el-button>
           </router-link>
-          <el-button v-if="postForm.id" type="danger" size="mini" @click="showPopup(postForm.id)">Xóa</el-button>
+          <el-button v-if="postForm.id" type="danger" size="mini"  @click="showPopup(postForm.id)">Xóa</el-button>
         </el-form-item>
       </div>
     </el-form>
@@ -81,24 +63,19 @@
 </template>
 
 <script>
-  import { fetchAll as fetchAllBrand } from '@/api/brand'
-  import { fetchAll as fetchAllServiceCategory } from '@/api/serviceCategory'
-  import { fetchService, create } from '@/api/service'
+  import { fetchCustomer, create, deleteItem } from '@/api/customer'
 
   const defaultForm = {
     id: undefined,
     name: '',
-    code: '',
-    description: '',
-    brand_ids: null,
-    category_id: null,
-    time: null,
-    price: null,
-    image: ''
+    phone: '',
+    email: '',
+    birthday: null,
+    image: null
   }
 
   export default {
-    name: 'ServiceDetail',
+    name: 'CustomerDetail',
     props: {
       isEdit: {
         type: Boolean,
@@ -112,8 +89,6 @@
         rules: {
         },
         tempRoute: {},
-        categories: [],
-        brands: [],
         imageFileList: [],
         dialogVisible: false
       }
@@ -127,13 +102,11 @@
       } else {
         this.postForm = Object.assign({}, defaultForm)
       }
-      this.getCategories()
-      this.getBrands()
       this.tempRoute = Object.assign({}, this.$route)
     },
     methods: {
       fetchData(id) {
-        fetchService(id).then(response => {
+        fetchCustomer(id).then(response => {
           this.postForm = response.data
           if (response.data.image != null) {
             this.imageFileList.push({
@@ -141,30 +114,6 @@
             })
             console.log(this.imageFileList)
           }
-        }).catch(err => {
-          console.log(err)
-        })
-      },
-      getCategories() {
-        fetchAllServiceCategory().then(response => {
-          response.data.forEach(element => {
-            this.categories.push({
-              label: element.name,
-              value: element.id
-            })
-          })
-        }).catch(err => {
-          console.log(err)
-        })
-      },
-      getBrands() {
-        fetchAllBrand().then(response => {
-          response.data.forEach(element => {
-            this.brands.push({
-              label: element.name,
-              value: element.id
-            })
-          })
         }).catch(err => {
           console.log(err)
         })
@@ -177,12 +126,9 @@
             const formData = new FormData()
             formData.append('id', this.postForm.id)
             formData.append('name', this.postForm.name)
-            formData.append('code', this.postForm.code)
-            formData.append('description', this.postForm.description)
-            formData.append('brand_ids', this.postForm.brand_ids)
-            formData.append('category_id', this.postForm.category_id)
-            formData.append('time', this.postForm.time)
-            formData.append('price', this.postForm.price)
+            formData.append('phone', this.postForm.phone)
+            formData.append('email', this.postForm.email)
+            formData.append('birthday', this.postForm.birthday)
             formData.append('image', this.postForm.image)
             create(this.isEdit, formData, this.postForm.id).then(response => {
               this.$notify({
@@ -191,7 +137,7 @@
                 type: 'success'
               })
 
-              this.$router.push({ path: '/service/' })
+              this.$router.push({ path: '/customer/' })
             }).catch(error => {
               if (error.response) {
                 this.$notify({
@@ -221,7 +167,7 @@
           })
         })
         this.dialogVisible = false
-        this.$router.push({ path: '/brand/' })
+        this.getList()
       }
     }
   }

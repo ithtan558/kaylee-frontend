@@ -40,3 +40,12 @@ export function numberFormatter(num, digits) {
 export function toThousandFilter(num) {
   return (+num || 0).toString().replace(/^-?\d+/g, m => m.replace(/(?=(?!\b)(\d{3})+$)/g, ','))
 }
+
+export function formatMoney(num) {
+  if (num && num !== 0 && num !== null) {
+    return num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+  } else {
+    return num
+  }
+}
+

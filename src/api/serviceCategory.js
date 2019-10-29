@@ -7,9 +7,9 @@ export function fetchList() {
   })
 }
 
-export function create(isEdit, data, uuid) {
+export function create(isEdit, data, id) {
   return request({
-    url: isEdit ? '/service-category/' + uuid : '/service-category',
+    url: isEdit ? '/service-category/' + id : '/service-category',
     method: isEdit ? 'post' : 'post',
     timeout: 10 * 60 * 1000,
     data: data

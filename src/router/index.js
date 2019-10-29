@@ -91,12 +91,36 @@ export const constantRoutes = [
     path: '/order',
     component: Layout,
     redirect: 'noredirect',
+    meta: {
+      title: 'Quản lý đơn hàng',
+      icon: 'component'
+    },
     children: [
+      {
+        path: 'history',
+        component: () => import('@/views/order/history'),
+        name: 'Lịch sử đơn hàng',
+        meta: { title: 'historyOrder', icon: 'calculator', noCache: true, affix: true }
+      },
       {
         path: '',
         component: () => import('@/views/order/index'),
         name: 'Thu Ngân',
         meta: { title: 'order', icon: 'calculator', noCache: true, affix: true }
+      },
+      {
+        path: 'cart',
+        component: () => import('@/views/order/cart'),
+        name: 'Giỏ hàng',
+        meta: { title: 'cart', icon: 'guide', noCache: true, affix: true },
+        hidden: true
+      },
+      {
+        path: 'history',
+        component: () => import('@/views/order/history'),
+        name: 'Lịch sử đơn hàng',
+        meta: { title: 'historyOrder', icon: 'guide', noCache: true, affix: true },
+        hidden: true
       }
     ]
   },
@@ -110,6 +134,20 @@ export const constantRoutes = [
         component: () => import('@/views/customer/index'),
         name: 'Khách hàng',
         meta: { title: 'customer', icon: 'user', noCache: true, affix: true }
+      },
+      {
+        path: 'create',
+        component: () => import('@/views/customer/create'),
+        name: 'Tạo khách hàng',
+        meta: { title: 'createCustomer', icon: 'guide', noCache: true, affix: true },
+        hidden: true
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/customer/edit'),
+        name: 'Sửa khách hàng',
+        meta: { title: 'editCustomer', icon: 'guide', noCache: true, affix: true },
+        hidden: true
       }
     ]
   },
@@ -127,14 +165,14 @@ export const constantRoutes = [
       {
         path: 'create',
         component: () => import('@/views/service/create'),
-        name: 'Tạo Dịch vụ',
+        name: 'Tạo dịch vụ',
         meta: { title: 'createService', icon: 'guide', noCache: true, affix: true },
         hidden: true
       },
       {
         path: 'edit/:id(\\d+)',
         component: () => import('@/views/service/edit'),
-        name: 'Sửa Dịch vụ',
+        name: 'Sửa dịch vụ',
         meta: { title: 'editService', icon: 'guide', noCache: true, affix: true },
         hidden: true
       }
@@ -159,14 +197,14 @@ export const constantRoutes = [
       {
         path: 'create',
         component: () => import('@/views/brand/create'),
-        name: 'Tạo Chi nhánh',
+        name: 'Tạo chi nhánh',
         meta: { title: 'createBrand', icon: 'guide', noCache: true, affix: true },
         hidden: true
       },
       {
         path: 'edit/:id(\\d+)',
         component: () => import('@/views/brand/edit'),
-        name: 'Sửa Chi nhánh',
+        name: 'Sửa chi nhánh',
         meta: { title: 'editBrand', icon: 'guide', noCache: true, affix: true },
         hidden: true
       }

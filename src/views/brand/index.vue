@@ -59,7 +59,6 @@ export default {
         type: undefined,
         sort: '+_id'
       },
-      uuid: null,
       dialogVisible: false
     }
   },

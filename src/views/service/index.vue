@@ -17,12 +17,14 @@
               <el-col v-for="item in list" :key="item.id" :span="24" class="product-item">
                 <router-link :to="'/service/edit/' + item.id">
                   <div class="product-image fl" v-bind:style="{ 'background-image': 'url(' + item.image + ')' }"></div>
-                  <div class="fl" style="width: calc(100% - 82px)">
-                    <div class="product-name">{{item.name}}</div>
+                  <div class="fl" style="width: calc(100% - 82px);height: 100%;padding: 10px;">
+                    <div class="product-name-action">
+                      <div class="product-name">{{item.name}}</div>
+                    </div>
                     <div class="sku-price">
                       <div class="product-sku fl">{{item.code}}</div>
                       <div class="price fr">
-                        <span class="cash">{{item.price}}</span>
+                        <span class="cash">{{item.price | formatMoney}}</span>
                       </div>
                       <br class="clear" />
                     </div>
@@ -39,46 +41,18 @@
     </div>
   </div>
 </template>
-
 <style>
-  .product-item {
-    border-radius: 2px;
-    border: 1px solid #DCDFE6;
-    margin-bottom: 10px;
-  }
-  .product-image {
-    height: 80px;
-    margin: 0;
-    clear: both;
-    float: left;
-    background-size: cover;
-    background-position: center center;
-    width: 80px;
-    padding: 0;
-    border-radius: 5px 0 0 5px;
-    background-repeat: no-repeat;
-    background-color: #fff;
-  }
-  .product-name {
-    font-size: 12px;
-    line-height: 20px;
-    height: 35px;
-    color: #4a90e2;
-    word-break: break-word;
-    margin: 10px 10px 0px 10px;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-  .sku-price {
-    margin: 5px 10px;
+  .product-name-action {
+    margin-bottom: 24px;
   }
 </style>
+
 <script>
 import { fetchList } from '@/api/service'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
-  name: 'Order',
+  name: 'Service',
   components: { Pagination },
   data() {
     return {
@@ -94,7 +68,6 @@ export default {
         type: undefined,
         sort: '+_id'
       },
-      uuid: null,
       dialogVisible: false
     }
   },

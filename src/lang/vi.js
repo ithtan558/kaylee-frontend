@@ -1,5 +1,8 @@
 export default {
   route: {
+    createCustomer: 'Tạo khách hàng',
+    historyOrder: 'Lịch sử đơn hàng',
+    cart: 'Giỏ hàng',
     brand: 'Chi nhánh',
     createBrand: 'Tạo chi nhánh',
     service: 'Dịch vụ',
@@ -248,5 +251,7 @@ export default {
   productList: 'Danh sách sản phẩm',
   cancel: 'Hủy',
   printOrder: 'In hóa đơn',
-  payment: 'Thanh toán'
+  payment: 'Thanh toán',
+  start: 'Bắt đầu',
+  logOut: 'Đăng xuất'
 }
