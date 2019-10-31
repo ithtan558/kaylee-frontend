@@ -100,26 +100,19 @@ export const constantRoutes = [
         path: 'history',
         component: () => import('@/views/order/history'),
         name: 'Lịch sử đơn hàng',
-        meta: { title: 'historyOrder', icon: 'calculator', noCache: true, affix: true }
+        meta: { title: 'historyOrder', noCache: true, affix: true }
       },
       {
         path: '',
         component: () => import('@/views/order/index'),
         name: 'Thu Ngân',
-        meta: { title: 'order', icon: 'calculator', noCache: true, affix: true }
+        meta: { title: 'order', noCache: true, affix: true }
       },
       {
         path: 'cart',
         component: () => import('@/views/order/cart'),
         name: 'Giỏ hàng',
         meta: { title: 'cart', icon: 'guide', noCache: true, affix: true },
-        hidden: true
-      },
-      {
-        path: 'history',
-        component: () => import('@/views/order/history'),
-        name: 'Lịch sử đơn hàng',
-        meta: { title: 'historyOrder', icon: 'guide', noCache: true, affix: true },
         hidden: true
       }
     ]
@@ -192,7 +185,7 @@ export const constantRoutes = [
         path: '',
         component: () => import('@/views/brand/index'),
         name: 'Chi nhánh',
-        meta: { title: 'brand', icon: 'guide', noCache: true, affix: true }
+        meta: { title: 'brand', icon: 'tree', noCache: true, affix: true }
       },
       {
         path: 'create',

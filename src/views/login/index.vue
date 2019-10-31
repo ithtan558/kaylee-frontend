@@ -1,57 +1,60 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
+      <div>
+        <div>
+          <div class="title-container">
+            <h3 class="title">
+              Đăng nhập hệ thống
+            </h3>
+          </div>
 
-      <div class="title-container">
-        <h3 class="title">
-          {{ $t('login.title') }}
-        </h3>
+          <el-form-item prop="account">
+            <span class="svg-container">
+              <svg-icon icon-class="user" />
+            </span>
+            <el-input
+              ref="account"
+              v-model="loginForm.account"
+              :placeholder="$t('login.account')"
+              name="account"
+              type="text"
+              auto-complete="on"
+            />
+          </el-form-item>
+
+          <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
+            <el-form-item prop="password">
+              <span class="svg-container">
+                <svg-icon icon-class="password" />
+              </span>
+              <el-input
+                :key="passwordType"
+                ref="password"
+                v-model="loginForm.password"
+                :type="passwordType"
+                :placeholder="$t('login.password')"
+                name="password"
+                auto-complete="on"
+                @keyup.native="checkCapslock"
+                @blur="capsTooltip = false"
+                @keyup.enter.native="handleLogin"
+              />
+              <span class="show-pwd" @click="showPwd">
+                <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
+              </span>
+            </el-form-item>
+          </el-tooltip>
+          <el-row class="margin-bottom-15">
+              <router-link :to="'/forgot-password'">
+                <span class="margin-right-0 link-type font-size-14">{{ $t('forgot_password.title') }}</span>
+              </router-link>
+              <el-button class="fr" :loading="loading" type="primary" @click.native.prevent="handleLogin">
+                {{ $t('login.logIn') }}
+              </el-button>
+            </el-row>
+        </div>
       </div>
-
-      <el-form-item prop="account">
-        <span class="svg-container">
-          <svg-icon icon-class="user" />
-        </span>
-        <el-input
-          ref="account"
-          v-model="loginForm.account"
-          :placeholder="$t('login.account')"
-          name="account"
-          type="text"
-          auto-complete="on"
-        />
-      </el-form-item>
-
-      <el-tooltip v-model="capsTooltip" content="Caps lock is On" placement="right" manual>
-        <el-form-item prop="password">
-          <span class="svg-container">
-            <svg-icon icon-class="password" />
-          </span>
-          <el-input
-            :key="passwordType"
-            ref="password"
-            v-model="loginForm.password"
-            :type="passwordType"
-            :placeholder="$t('login.password')"
-            name="password"
-            auto-complete="on"
-            @keyup.native="checkCapslock"
-            @blur="capsTooltip = false"
-            @keyup.enter.native="handleLogin"
-          />
-          <span class="show-pwd" @click="showPwd">
-            <svg-icon :icon-class="passwordType === 'password' ? 'eye' : 'eye-open'" />
-          </span>
-        </el-form-item>
-      </el-tooltip>
-      <el-row class="margin-bottom-15">
-        <router-link :to="'/forgot-password'">
-          <span class="margin-right-0 link-type font-size-14">{{ $t('forgot_password.title') }}</span>
-        </router-link>
-        <el-button class="fr" :loading="loading" type="primary" @click.native.prevent="handleLogin">
-          {{ $t('login.logIn') }}
-        </el-button>
-      </el-row>
     </el-form>
   </div>
 </template>
@@ -172,12 +175,13 @@ $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
   .login-container .el-input input {
-    color: $cursor;
+    color: #6f6f6f;
   }
 }
 
 /* reset element-ui css */
 .login-container {
+  display: table;
   .el-input {
     display: inline-block;
     height: 47px;
@@ -189,20 +193,20 @@ $cursor: #fff;
       -webkit-appearance: none;
       border-radius: 0px;
       padding: 12px 5px 12px 15px;
-      color: $light_gray;
+      color: #6f6f6f;
       height: 47px;
       caret-color: $cursor;
 
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
-        -webkit-text-fill-color: $cursor !important;
+        box-shadow: 0 0 0px 1000px #fff inset !important;
+        -webkit-text-fill-color: #6f6f6f !important;
       }
     }
   }
 
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
-    background: rgba(0, 0, 0, 0.1);
+    background-color: #fff;
     border-radius: 5px;
     color: #454545;
   }
@@ -217,16 +221,25 @@ $light_gray:#eee;
 .login-container {
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-color: #fff;
   overflow: hidden;
 
   .login-form {
     position: relative;
-    width: 420px;
-    max-width: 100%;
-    padding: 160px 35px 0;
     margin: 0 auto;
     overflow: hidden;
+    display: table-cell;
+    vertical-align: middle;
+    > div {
+      margin: 0 auto;
+      max-width: 420px;
+      > div {
+        margin: 15px;
+        background-color: #f7f7f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 10px;
+      }
+    }
   }
 
   .tips {
@@ -243,10 +256,10 @@ $light_gray:#eee;
 
   .svg-container {
     padding: 6px 5px 6px 15px;
-    color: $dark_gray;
     vertical-align: middle;
     width: 30px;
     display: inline-block;
+    color: #555;
   }
 
   .title-container {
@@ -254,10 +267,11 @@ $light_gray:#eee;
 
     .title {
       font-size: 26px;
-      color: $light_gray;
+      color: #555;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;
+      padding-top: 30px;
     }
 
     .set-language {

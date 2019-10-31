@@ -442,6 +442,9 @@ ul {
   padding: 10px;
   font-size: 13px;
 }
+.el-notification__content {
+  margin-top: 2px !important;
+}
 @media screen and (max-width: 600px) {
   .pagination-container {
     text-align: center;
