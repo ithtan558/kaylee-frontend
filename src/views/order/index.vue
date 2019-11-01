@@ -258,8 +258,8 @@ export default {
     },
     showPopupKindOfCustomer() {
       // Check empty cart
-      const cartItems = JSON.parse(Cookies.get('cartItems'));
-      if (cartItems.length == 0) {
+      const cartItems = Cookies.get('cartItems') ? JSON.parse(Cookies.get('cartItems')) : undefined
+      if (cartItems === undefined || cartItems.length === 0) {
         this.$notify({
           dangerouslyUseHTMLString: true,
           message: 'Không có dịch vụ nào trong giỏ hàng',

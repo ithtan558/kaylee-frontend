@@ -8,7 +8,6 @@
       </div>
       <app-main />
     </div>
-    <footer />
   </div>
 </template>
 

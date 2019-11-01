@@ -4,10 +4,10 @@
       <div class="createPost-main-container">
         <el-row>
           <el-col :span="24">
-            <el-form-item label="Tên khách hàng:">
+            <el-form-item label="Tên khách hàng:" required>
               <el-input v-model="postForm.name" size="small" clearable remote placeholder="Tên khách hàng" />
             </el-form-item>
-            <el-form-item label="Số điện thoại:">
+            <el-form-item label="Số điện thoại:" required>
               <el-input v-model="postForm.phone" size="small" clearable remote placeholder="Số điện thoại" />
             </el-form-item>
             <el-form-item label="Email:">

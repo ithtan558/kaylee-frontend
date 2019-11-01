@@ -4,13 +4,13 @@
       <div class="createPost-main-container">
         <el-row>
           <el-col :span="24">
-            <el-form-item label="Tên dịch vụ:">
+            <el-form-item label="Tên dịch vụ:" required>
               <el-input v-model="postForm.name" size="small" clearable remote placeholder="Tên dịch vụ" />
             </el-form-item>
-            <el-form-item label="Mã dịch vụ:">
+            <el-form-item label="Mã dịch vụ:" required>
               <el-input v-model="postForm.code" size="small" clearable remote placeholder="Mã dịch vụ" />
             </el-form-item>
-            <el-form-item label="Loại dịch vụ:">
+            <el-form-item label="Loại dịch vụ:" required>
               <el-select v-model="postForm.category_id" placeholder="Select" clearable style="width: 400px;">
                 <el-option
                   v-for="item in categories"
@@ -20,7 +20,7 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="Chi nhánh:">
+            <el-form-item label="Chi nhánh:" required>
               <el-select v-model="postForm.brand_ids" multiple placeholder="Select" clearable style="width: 400px;">
                 <el-option
                   v-for="item in brands"
@@ -30,10 +30,10 @@
                 />
               </el-select>
             </el-form-item>
-            <el-form-item label="Thời gian phục vụ:">
+            <el-form-item label="Thời gian phục vụ:" required>
               <el-input v-model="postForm.time" size="small" clearable remote placeholder="Thời gian phục vụ" />
             </el-form-item>
-            <el-form-item label="Giá:">
+            <el-form-item label="Giá:" required>
               <el-input type="number" v-model="postForm.price" size="small" clearable remote placeholder="Giá" />
             </el-form-item>
             <el-form-item label="Mô tả:">

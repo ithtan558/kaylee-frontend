@@ -175,11 +175,6 @@ export const constantRoutes = [
     path: '/brand',
     component: Layout,
     redirect: 'noredirect',
-    name: 'Chi nhánh',
-    meta: {
-      title: 'Chi nhánh',
-      icon: 'component'
-    },
     children: [
       {
         path: '',

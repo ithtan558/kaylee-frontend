@@ -1,6 +1,7 @@
 export default {
   route: {
     createCustomer: 'Tạo khách hàng',
+    createService: 'Tạo dịch vụ',
     historyOrder: 'Lịch sử đơn hàng',
     cart: 'Giỏ hàng',
     brand: 'Chi nhánh',

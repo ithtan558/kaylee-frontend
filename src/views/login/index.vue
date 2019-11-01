@@ -46,13 +46,13 @@
             </el-form-item>
           </el-tooltip>
           <el-row class="margin-bottom-15">
-              <router-link :to="'/forgot-password'">
-                <span class="margin-right-0 link-type font-size-14">{{ $t('forgot_password.title') }}</span>
-              </router-link>
-              <el-button class="fr" :loading="loading" type="primary" @click.native.prevent="handleLogin">
-                {{ $t('login.logIn') }}
-              </el-button>
-            </el-row>
+            <!--<router-link :to="'/forgot-password'">
+              <span class="margin-right-0 link-type font-size-14">{{ $t('forgot_password.title') }}</span>
+            </router-link>-->
+            <el-button class="fr" :loading="loading" type="primary" @click.native.prevent="handleLogin">
+              {{ $t('login.logIn') }}
+            </el-button>
+          </el-row>
         </div>
       </div>
     </el-form>
