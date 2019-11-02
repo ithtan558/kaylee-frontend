@@ -137,7 +137,7 @@
           this.postForm = response.data
           if (response.data.image != null) {
             this.imageFileList.push({
-              url: process.env.VUE_APP_API + process.env.DIR_UPLOAD + response.data.image
+              url: process.env.VUE_APP_API + process.env.VUE_APP_DIR_UPLOAD + response.data.image
             })
             console.log(this.imageFileList)
           }
