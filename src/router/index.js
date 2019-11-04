@@ -50,6 +50,11 @@ export const constantRoutes = [
     hidden: true
   },
   {
+    path: '/register',
+    component: () => import('@/views/register/index'),
+    hidden: true
+  },
+  {
     path: '/forgot-password',
     component: () => import('@/views/forgotPassword/index'),
     hidden: true
@@ -195,7 +200,14 @@ export const constantRoutes = [
         name: 'Sửa chi nhánh',
         meta: { title: 'editBrand', icon: 'guide', noCache: true, affix: true },
         hidden: true
-      }
+      },
+      {
+        path: 'employee',
+        component: () => import('@/views/employee/create'),
+        name: 'Nhân viên',
+        meta: { title: 'employee', icon: 'guide', noCache: true, affix: true },
+        hidden: true
+      },
     ]
   }
 ]

@@ -46,12 +46,18 @@
             </el-form-item>
           </el-tooltip>
           <el-row class="margin-bottom-15">
-            <!--<router-link :to="'/forgot-password'">
+            <router-link :to="'/forgot-password'">
               <span class="margin-right-0 link-type font-size-14">{{ $t('forgot_password.title') }}</span>
-            </router-link>-->
+            </router-link>
             <el-button class="fr" :loading="loading" type="primary" @click.native.prevent="handleLogin">
               {{ $t('login.logIn') }}
             </el-button>
+          </el-row>
+          <el-row class="mrt-15 text-center">
+            <span class="margin-right-0 font-size-14">Bạn chưa có tài khoản?</span>
+            <router-link :to="'/register'">
+              <span class="margin-right-0 link-type font-size-14">Đăng ký</span>
+            </router-link>
           </el-row>
         </div>
       </div>

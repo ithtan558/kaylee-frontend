@@ -7,7 +7,7 @@ import { getToken } from '@/utils/auth' // get token from cookie
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
-const whiteList = ['/login', '/auth-redirect', '/forgot-password', '/reset-password'] // no redirect whitelist
+const whiteList = ['/login', '/auth-redirect', '/forgot-password', '/reset-password', '/register'] // no redirect whitelist
 const resetPasswordUrl = '/reset-password/'
 
 router.beforeEach(async(to, from, next) => {
