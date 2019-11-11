@@ -2,13 +2,10 @@
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
       <div>
+        <h2 class="text-center">Hệ thống quản lý Salon</h2>
+      </div>
+      <div>
         <div>
-          <div class="title-container">
-            <h3 class="title">
-              Đăng nhập hệ thống
-            </h3>
-          </div>
-
           <el-form-item prop="account">
             <span class="svg-container">
               <svg-icon icon-class="user" />
@@ -46,9 +43,7 @@
             </el-form-item>
           </el-tooltip>
           <el-row class="margin-bottom-15">
-            <router-link :to="'/forgot-password'">
-              <span class="margin-right-0 link-type font-size-14">{{ $t('forgot_password.title') }}</span>
-            </router-link>
+            <span class="margin-right-0 link-type font-size-14">{{ $t('forgot_password.title') }}</span>
             <el-button class="fr" :loading="loading" type="primary" @click.native.prevent="handleLogin">
               {{ $t('login.logIn') }}
             </el-button>
@@ -242,8 +237,8 @@ $light_gray:#eee;
       > div {
         margin: 15px;
         background-color: #f7f7f7;
-        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-        padding: 10px;
+        box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.2);
+        padding: 20px 10px;
       }
     }
   }

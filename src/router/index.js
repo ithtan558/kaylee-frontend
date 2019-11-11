@@ -110,8 +110,8 @@ export const constantRoutes = [
       {
         path: '',
         component: () => import('@/views/order/index'),
-        name: 'Thu Ngân',
-        meta: { title: 'order', noCache: true, affix: true }
+        name: 'Tạo đơn hàng',
+        meta: { title: 'Tạo đơn hàng', noCache: true, affix: true }
       },
       {
         path: 'cart',
@@ -175,40 +175,6 @@ export const constantRoutes = [
         hidden: true
       }
     ]
-  },
-  {
-    path: '/brand',
-    component: Layout,
-    redirect: 'noredirect',
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/brand/index'),
-        name: 'Chi nhánh',
-        meta: { title: 'brand', icon: 'tree', noCache: true, affix: true }
-      },
-      {
-        path: 'create',
-        component: () => import('@/views/brand/create'),
-        name: 'Tạo chi nhánh',
-        meta: { title: 'createBrand', icon: 'guide', noCache: true, affix: true },
-        hidden: true
-      },
-      {
-        path: 'edit/:id(\\d+)',
-        component: () => import('@/views/brand/edit'),
-        name: 'Sửa chi nhánh',
-        meta: { title: 'editBrand', icon: 'guide', noCache: true, affix: true },
-        hidden: true
-      },
-      {
-        path: 'employee',
-        component: () => import('@/views/employee/create'),
-        name: 'Nhân viên',
-        meta: { title: 'employee', icon: 'guide', noCache: true, affix: true },
-        hidden: true
-      },
-    ]
   }
 ]
 
@@ -217,7 +183,67 @@ export const constantRoutes = [
  * the routes that need to be dynamically loaded based on user roles
  */
 export const asyncRoutes = [
-  { path: '*', redirect: '/404', hidden: true }
+  { path: '*', redirect: '/404', hidden: true },
+  {
+    path: '/brand',
+    component: Layout,
+    redirect: 'noredirect',
+    meta: {
+      roles: ['admin']
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/brand/index'),
+        name: 'Chi nhánh',
+        meta: { title: 'brand', icon: 'tree', noCache: true, affix: true, roles: ['admin'] }
+      },
+      {
+        path: 'create',
+        component: () => import('@/views/brand/create'),
+        name: 'Tạo chi nhánh',
+        meta: { title: 'createBrand', icon: 'guide', noCache: true, affix: true, roles: ['admin'] },
+        hidden: true
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/brand/edit'),
+        name: 'Sửa chi nhánh',
+        meta: { title: 'editBrand', icon: 'guide', noCache: true, affix: true, roles: ['admin'] },
+        hidden: true
+      }
+    ]
+  },
+  {
+    path: '/employee',
+    component: Layout,
+    redirect: 'noredirect',
+    meta: {
+      roles: ['admin', 'brand_manager']
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/employee/index'),
+        name: 'Nhân viên',
+        meta: { title: 'employee', icon: 'user', noCache: true, affix: true, roles: ['admin', 'brand_manager'] }
+      },
+      {
+        path: 'create',
+        component: () => import('@/views/employee/create'),
+        name: 'Tạo nhân viên',
+        meta: { title: 'createEmployee', icon: 'guide', noCache: true, affix: true, roles: ['admin', 'brand_manager'] },
+        hidden: true
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/employee/edit'),
+        name: 'Sửa nhân viên',
+        meta: { title: 'editEmployee', icon: 'guide', noCache: true, affix: true, roles: ['admin', 'brand_manager'] },
+        hidden: true
+      }
+    ]
+  }
 ]
 
 const createRouter = () => new Router({

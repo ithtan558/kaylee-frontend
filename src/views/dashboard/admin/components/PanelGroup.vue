@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-row :gutter="40" class="panel-group">
-      <el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
+      <!--<el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
         <div class="card-panel">
           <div class="card-panel-icon-wrapper icon-calendar">
             <svg-icon icon-class="calendar" class-name="card-panel-icon" />
@@ -13,17 +13,15 @@
             <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
           </div>
         </div>
-      </el-col>
+      </el-col>-->
       <el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
         <div class="card-panel">
           <div class="card-panel-icon-wrapper icon-calculator">
             <svg-icon icon-class="calculator" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">
-              {{ $t('order') }}
-            </div>
-            <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
+            <div class="card-panel-text">Đơn hàng</div>
+            <count-to :start-val="0" :end-val="countOrder" :duration="3000" class="card-panel-num" />
           </div>
         </div>
       </el-col>
@@ -36,120 +34,164 @@
             <div class="card-panel-text">
               {{ $t('customer') }}
             </div>
-            <count-to :start-val="0" :end-val="9280" :duration="3200" class="card-panel-num" />
+            <count-to :start-val="0" :end-val="countCustomer" :duration="3200" class="card-panel-num" />
           </div>
         </div>
       </el-col>
     </el-row>
     <el-row :gutter="40" class="panel-group-second">
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper">
-          <i class="el-icon-house"></i>
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            {{ $t('businessProfile') }}
+      <!--<el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper">
+            <i class="el-icon-house"></i>
+          </div>
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              {{ $t('businessProfile') }}
+            </div>
           </div>
         </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper">
-          <i class="el-icon-s-order"></i>
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            {{ $t('orderList') }}
+      </el-col>-->
+      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper">
+            <i class="el-icon-s-order"></i>
+          </div>
+          <div class="card-panel-description">
+            <router-link :to="'/order/history'">
+              <div class="card-panel-text">
+                {{ $t('orderList') }}
+              </div>
+            </router-link>
           </div>
         </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper">
-          <i class="el-icon-printer"></i>
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            {{ $t('revenueReport') }}
+      </el-col>
+      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper">
+            <i class="el-icon-printer"></i>
+          </div>
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              {{ $t('revenueReport') }}
+            </div>
           </div>
         </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper">
-          <i class="el-icon-user"></i>
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            {{ $t('employeeList') }}
+      </el-col>
+      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper">
+            <i class="el-icon-user"></i>
+          </div>
+          <div class="card-panel-description">
+            <router-link :to="'/employee'">
+              <div class="card-panel-text">
+                {{ $t('employeeList') }}
+              </div>
+            </router-link>
           </div>
         </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper">
-          <i class="el-icon-price-tag"></i>
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            {{ $t('productInventory') }}
+      </el-col>
+      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper">
+            <i class="el-icon-price-tag"></i>
+          </div>
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              {{ $t('productInventory') }}
+            </div>
           </div>
         </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper">
-          <i class="el-icon-location"></i>
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            {{ $t('businessBrand') }}
+      </el-col>
+      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper">
+            <i class="el-icon-location"></i>
+          </div>
+          <div class="card-panel-description">
+            <router-link :to="'/brand'">
+              <div class="card-panel-text">
+                {{ $t('businessBrand') }}
+              </div>
+            </router-link>
           </div>
         </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper">
-          <i class="el-icon-service"></i>
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            {{ $t('serviceList') }}
+      </el-col>
+      <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper">
+            <i class="el-icon-service"></i>
+          </div>
+          <div class="card-panel-description">
+            <router-link :to="'/service'">
+              <div class="card-panel-text">
+                {{ $t('serviceList') }}
+              </div>
+            </router-link>
           </div>
         </div>
-      </div>
-    </el-col>
-    <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-      <div class="card-panel">
-        <div class="card-panel-icon-wrapper">
-          <i class="el-icon-s-shop"></i>
-        </div>
-        <div class="card-panel-description">
-          <div class="card-panel-text">
-            {{ $t('productList') }}
+      </el-col>
+      <!--<el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
+        <div class="card-panel">
+          <div class="card-panel-icon-wrapper">
+            <i class="el-icon-s-shop"></i>
+          </div>
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              {{ $t('productList') }}
+            </div>
           </div>
         </div>
-      </div>
-    </el-col>
-  </el-row>
+      </el-col>-->
+    </el-row>
   </div>
 </template>
 
 <script>
 import CountTo from 'vue-count-to'
+import { getCount as countCustomer } from '@/api/customer'
+import { getCount as countOrder } from '@/api/order'
 
 export default {
+  name: 'ServiceDetail',
   components: {
     CountTo
   },
+  props: {
+    isEdit: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      loading: false,
+      countCustomer: 0,
+      countOrder: 0
+    }
+  },
+  computed: {
+  },
+  created() {
+    this.getCountCustomer()
+    this.getCountOrder()
+  },
   methods: {
+    getCountCustomer() {
+      countCustomer().then(response => {
+        this.countCustomer = response.data
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getCountOrder() {
+      countOrder().then(response => {
+        this.countOrder = response.data
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   }
 }
 </script>

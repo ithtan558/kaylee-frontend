@@ -4,6 +4,16 @@
       <div class="createPost-main-container">
         <el-row>
           <el-col :span="24">
+            <el-form-item label="Loại khách hàng:" required>
+              <el-select v-model="postForm.type_id" placeholder="Select" clearable style="width: 400px;">
+                <el-option
+                  v-for="item in types"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
+                />
+              </el-select>
+            </el-form-item>
             <el-form-item label="Tên khách hàng:" required>
               <el-input v-model="postForm.name" size="small" clearable remote placeholder="Tên khách hàng" />
             </el-form-item>
@@ -39,11 +49,11 @@
         <div class="clearfix" />
         <br>
         <el-form-item class="text-center">
-          <el-button icon="el-icon-check" size="mini" type="primary" @click="submitForm">Tạo</el-button>
+          <el-button icon="el-icon-check" size="mini" type="primary" @click="submitForm">Đồng ý</el-button>
           <router-link :to="'/customer'">
             <el-button icon="el-icon-back" size="mini" type="info">Quay lại</el-button>
           </router-link>
-          <el-button v-if="postForm.id" type="danger" size="mini"  @click="showPopup(postForm.id)">Xóa</el-button>
+          <el-button icon="el-icon-delete" v-if="postForm.id" type="danger" size="mini"  @click="showPopup(postForm.id)">Xóa</el-button>
         </el-form-item>
       </div>
     </el-form>
@@ -64,9 +74,11 @@
 
 <script>
   import { fetchCustomer, create, deleteItem } from '@/api/customer'
+  import { fetchAll as fetchAllType } from '@/api/customerType'
 
   const defaultForm = {
     id: undefined,
+    type: '',
     name: '',
     phone: '',
     email: '',
@@ -90,6 +102,7 @@
         },
         tempRoute: {},
         imageFileList: [],
+        types: [],
         dialogVisible: false
       }
     },
@@ -102,9 +115,22 @@
       } else {
         this.postForm = Object.assign({}, defaultForm)
       }
+      this.getTypes()
       this.tempRoute = Object.assign({}, this.$route)
     },
     methods: {
+      getTypes() {
+        fetchAllType().then(response => {
+          response.data.forEach(element => {
+            this.types.push({
+              label: element.name,
+              value: element.id
+            })
+          })
+        }).catch(err => {
+          console.log(err)
+        })
+      },
       fetchData(id) {
         fetchCustomer(id).then(response => {
           this.postForm = response.data
@@ -125,6 +151,7 @@
             this.loading = true
             const formData = new FormData()
             formData.append('id', this.postForm.id)
+            formData.append('type_id', this.postForm.type_id)
             formData.append('name', this.postForm.name)
             formData.append('phone', this.postForm.phone)
             formData.append('email', this.postForm.email)

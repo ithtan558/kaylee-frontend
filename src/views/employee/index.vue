@@ -3,15 +3,21 @@
     <div class="createPost-main-container">
       <el-row>
         <el-col :span="24">
-          <router-link :to="'/brand/employee/create'">
+          <router-link :to="'/employee/create'">
             <el-button class="w100 mrb-10" type="primary">Tạo nhân viên</el-button>
           </router-link>
-          <div class="list-brand">
+          <div class="list-employee">
             <el-row>
-              <el-col v-for="item in list" :key="item.id" :span="24" class="brand-item">
-                <router-link :to="'/brand/employee/edit/' + item.id">
-                  <span class="title">{{item.name}}</span>
-                  <span class="title">{{item.phone}}</span>
+              <el-col class="title-list">
+                <span>Danh sách nhân viên</span>
+              </el-col>
+            </el-row>
+            <el-row>
+              <el-col v-for="item in list" :key="item.id" :span="24" class="employee-item">
+                <router-link :to="'/employee/edit/' + item.id">
+                  <span class="fl name">{{item.name}}</span>
+                  <span class="fr phone">{{item.phone}}</span>
+                  <br class="clear">
                 </router-link>
               </el-col>
             </el-row>
@@ -23,15 +29,14 @@
 </template>
 
 <style lang="scss" scoped>
-  .brand-item {
+  .employee-item {
     padding: 10px;
     font-size: 13px;
     border-radius: 2px;
     border: 1px solid #DCDFE6;
     margin-bottom: 10px;
-    .title {
-      font-size: 20px;
-      margin: 5px 10px 10px 10px;
+    .phone {
+      text-align: right;
     }
     p {
       margin: 5px;

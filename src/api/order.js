@@ -16,3 +16,11 @@ export function create(data) {
     data: data
   })
 }
+
+export function getCount(query) {
+  return request({
+    url: '/order/get-count',
+    method: 'get',
+    params: query
+  })
+}

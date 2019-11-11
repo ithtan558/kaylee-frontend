@@ -37,3 +37,11 @@ export function fetchAll() {
     method: 'get'
   })
 }
+
+export function getEmployee(query) {
+  return request({
+    url: '/employee/get-by-phone-and-name',
+    method: 'get',
+    params: query
+  })
+}

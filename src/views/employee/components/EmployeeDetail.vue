@@ -1,33 +1,35 @@
 <template>
   <div class="createPost-container">
-    <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" label-width="120px"  label-position="top">
+    <el-form ref="postForm" :model="postForm" class="form-container" label-width="120px"  label-position="top">
       <div class="createPost-main-container">
         <el-row>
           <el-col :span="24">
-            <el-form-item label="Tên cửa hàng:" required>
-              <el-input v-model="postForm.name" size="small" clearable remote placeholder="Tên cửa hàng" />
+            <el-form-item label="Họ Tên:" required>
+              <el-input v-model="postForm.name" size="small" clearable remote placeholder="Họ Tên" />
             </el-form-item>
             <el-form-item label="Số điện thoại:" required>
               <el-input type="number" v-model="postForm.phone" size="small" clearable remote placeholder="Số điện thoại" />
             </el-form-item>
+            <el-form-item label="Mật khẩu:">
+              <el-input v-model="postForm.password" placeholder="Mật khẩu đăng nhập" type="password" auto-complete="on"/>
+            </el-form-item>
+            <el-form-item label="Email:">
+              <el-input v-model="postForm.email" size="small" clearable remote placeholder="Email" />
+            </el-form-item>
+            <el-form-item label="Năm sinh:">
+              <el-date-picker
+                v-model="postForm.birthday"
+                type="date"
+                format="yyyy-MM-dd"
+                value-format="yyyy-MM-dd">
+              </el-date-picker>
+            </el-form-item>
+            <el-form-item label="Giới tính:">
+              <el-radio v-model="postForm.gender" label="1">Nam</el-radio>
+              <el-radio v-model="postForm.gender" label="2">Nữ</el-radio>
+            </el-form-item>
             <el-form-item label="Địa chỉ:">
-              <el-input v-model="postForm.location" size="small" clearable remote placeholder="Địa chỉ" />
-            </el-form-item>
-            <el-form-item label="Thành phố:" required>
-              <el-select size="small" clearable remote placeholder="Thành phố:" v-model="postForm.city_id" @change="handelForDistrict">
-                <el-option v-for="(item) in cities" :key="item.id" :label="item.name" :value="item.id" />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="Quận/Huyện:" required>
-              <el-select size="small" clearable remote placeholder="Quận/Huyện:" v-model="postForm.district_id">
-                <el-option v-for="(item) in districts" :key="item.id" :label="item.name" :value="item.id" />
-              </el-select>
-            </el-form-item>
-            <el-form-item label="Giờ mở cửa:" required>
-              <el-time-select v-model="postForm.start_time" placeholder="Mở cửa">
-              </el-time-select>
-              <el-time-select v-model="postForm.end_time" placeholder="Đóng cửa">
-              </el-time-select>
+              <el-input v-model="postForm.address" size="small" clearable remote placeholder="Địa chỉ" />
             </el-form-item>
             <el-form-item label="Hình ảnh:" prop="image">
               <el-upload
@@ -42,16 +44,26 @@
               >
               </el-upload>
             </el-form-item>
+            <el-form-item label="Chi nhánh:" required>
+              <el-select size="small" clearable remote placeholder="Chi nhánh:" v-model="postForm.brand_id">
+                <el-option v-for="(item) in brands" :key="item.id" :label="item.name" :value="item.id" />
+              </el-select>
+            </el-form-item>
+            <el-form-item label="Loại tài khoản:" required>
+              <el-select size="small" clearable remote placeholder="Loại tài khoản:" v-model="postForm.role_id">
+                <el-option v-for="(item) in roles" :key="item.id" :label="item.name" :value="item.id" />
+              </el-select>
+            </el-form-item>
           </el-col>
         </el-row>
         <div class="clearfix" />
         <br>
         <el-form-item class="text-center">
-          <el-button icon="el-icon-check" size="mini" type="primary" @click="submitForm">Tạo</el-button>
-          <router-link :to="'/brand'">
+          <el-button icon="el-icon-check" size="mini" type="primary" @click="submitForm">Đồng ý</el-button>
+          <router-link :to="'/employee'">
             <el-button icon="el-icon-back" size="mini" type="info">Quay lại</el-button>
           </router-link>
-          <el-button v-if="postForm.id" type="danger" size="mini" @click="showPopup(postForm.id)">Xóa</el-button>
+          <el-button icon="el-icon-delete" v-if="postForm.id" type="danger" size="mini" @click="showPopup(postForm.id)">Xóa</el-button>
         </el-form-item>
       </div>
     </el-form>
@@ -71,24 +83,25 @@
 </template>
 
 <script>
-import { fetchListCity } from '@/api/city'
-import { fetchListDistrict, fetchListDistrictByCityId } from '@/api/district'
-import { fetchBrand, create, deleteItem } from '@/api/brand'
+import { fetchEmployee, create, deleteItem } from '@/api/employee'
+import { fetchAll as fetchAllRole } from '@/api/role'
+import { fetchAll as fetchAllBrand } from '@/api/brand'
 
 const defaultForm = {
-  id: undefined,
   name: '',
+  email: '',
   phone: '',
-  location: '',
-  city_id: '',
-  district_id: '',
-  start_time: '',
-  end_time: '',
-  image: ''
+  password: '',
+  birthday: '',
+  gender: '',
+  address: '',
+  image: '',
+  role_id: '',
+  brand_id: ''
 }
 
 export default {
-  name: 'BrandDetail',
+  name: 'EmployeeDetail',
   props: {
     isEdit: {
       type: Boolean,
@@ -98,17 +111,11 @@ export default {
   data() {
     return {
       postForm: Object.assign({}, defaultForm),
-      loading: false,
-      rules: {
-      },
-      tempRoute: {},
-      cities: [],
-      districts: [],
+      roles: [],
+      brands: [],
       imageFileList: [],
       dialogVisible: false
     }
-  },
-  computed: {
   },
   created() {
     if (this.isEdit) {
@@ -117,13 +124,12 @@ export default {
     } else {
       this.postForm = Object.assign({}, defaultForm)
     }
-    this.getCities()
-    this.getDistricts()
-    this.tempRoute = Object.assign({}, this.$route)
+    this.getBrands()
+    this.getRoles()
   },
   methods: {
     fetchData(id) {
-      fetchBrand(id).then(response => {
+      fetchEmployee(id).then(response => {
         this.postForm = response.data
         if (response.data.image != null) {
           this.imageFileList.push({
@@ -135,30 +141,16 @@ export default {
         console.log(err)
       })
     },
-    getCities() {
-      fetchListCity().then(response => {
-        response.data.forEach(element => {
-          this.cities.push(element)
-        })
+    getBrands() {
+      fetchAllBrand().then(response => {
+        this.brands = response.data
       }).catch(err => {
         console.log(err)
       })
     },
-    getDistricts() {
-      fetchListDistrict().then(response => {
-        response.data.forEach(element => {
-          this.districts.push(element)
-        })
-      }).catch(err => {
-        console.log(err)
-      })
-    },
-    handelForDistrict() {
-      this.districts = []
-      fetchListDistrictByCityId(this.postForm.city_id).then(response => {
-        response.data.forEach(element => {
-          this.districts.push(element)
-        })
+    getRoles() {
+      fetchAllRole().then(response => {
+        this.roles = response.data
       }).catch(err => {
         console.log(err)
       })
@@ -172,12 +164,14 @@ export default {
           formData.append('id', this.postForm.id)
           formData.append('name', this.postForm.name)
           formData.append('phone', this.postForm.phone)
-          formData.append('location', this.postForm.location)
-          formData.append('city_id', this.postForm.city_id)
-          formData.append('district_id', this.postForm.district_id)
-          formData.append('start_time', this.postForm.start_time)
-          formData.append('end_time', this.postForm.end_time)
+          formData.append('password', this.postForm.password)
+          formData.append('email', this.postForm.email)
+          formData.append('birthday', this.postForm.birthday)
+          formData.append('gender', this.postForm.gender)
+          formData.append('address', this.postForm.address)
           formData.append('image', this.postForm.image)
+          formData.append('role_id', this.postForm.role_id)
+          formData.append('brand_id', this.postForm.brand_id)
           create(this.isEdit, formData, this.postForm.id).then(response => {
             this.$notify({
               dangerouslyUseHTMLString: true,
@@ -185,7 +179,7 @@ export default {
               type: 'success'
             })
 
-            this.$router.push({ path: '/brand/' })
+            this.$router.push({ path: '/employee/' })
           }).catch(error => {
             if (error.response) {
               this.$notify({
@@ -215,32 +209,32 @@ export default {
         })
       })
       this.dialogVisible = false
-      this.$router.push({ path: '/brand/' })
+      this.$router.push({ path: '/employee/' })
     }
   }
 }
 </script>
 
 <style lang="scss" scoped>
-@import "~@/styles/mixin.scss";
-.createPost-container {
-  position: relative;
-  .createPost-main-container {
-    padding: 20px 10px;
-    .postInfo-container {
-      position: relative;
-      @include clearfix;
-      margin-bottom: 10px;
-      .postInfo-container-item {
-        float: left;
+  @import "~@/styles/mixin.scss";
+  .createPost-container {
+    position: relative;
+    .createPost-main-container {
+      padding: 20px 10px;
+      .postInfo-container {
+        position: relative;
+        @include clearfix;
+        margin-bottom: 10px;
+        .postInfo-container-item {
+          float: left;
+        }
       }
     }
+    .word-counter {
+      width: 40px;
+      position: absolute;
+      right: -10px;
+      top: 0px;
+    }
   }
-  .word-counter {
-    width: 40px;
-    position: absolute;
-    right: -10px;
-    top: 0px;
-  }
-}
 </style>

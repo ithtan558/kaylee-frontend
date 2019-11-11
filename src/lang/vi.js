@@ -1,5 +1,8 @@
 export default {
   route: {
+    employee: 'Nhân viên',
+    createEmployee: 'Tạo nhân viên',
+    editEmployee: 'Sửa nhân viên',
     createCustomer: 'Tạo khách hàng',
     editCustomer: 'Sửa khách hàng',
     createService: 'Tạo dịch vụ',

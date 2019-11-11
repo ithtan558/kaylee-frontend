@@ -37,3 +37,11 @@ export function getCustomer(query) {
     params: query
   })
 }
+
+export function getCount(query) {
+  return request({
+    url: '/customer/get-count',
+    method: 'get',
+    params: query
+  })
+}

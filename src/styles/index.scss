@@ -6,6 +6,7 @@
 @import './btn.scss';
 
 body {
+  font-size: 13px;
   line-height: 1.5384616;
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -444,6 +445,11 @@ ul {
 }
 .el-notification__content {
   margin-top: 2px !important;
+}
+.title-list {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 5px;
 }
 @media screen and (max-width: 600px) {
   .pagination-container {

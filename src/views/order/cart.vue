@@ -6,6 +6,18 @@
           <h3 class="text-center mr-0 mrb-15">Đơn hàng</h3>
           <el-container>
             <el-form class="form-container w100">
+              <el-form-item class="info-employee" :xs="24">
+                <div class="title">Thông tin nhân viên</div>
+                <div class="body" v-if="cartEmployee.name">
+                  <span class="fl">{{cartEmployee.name}}</span>
+                  <span class="fr text-right" @click="popupFindEmployeeVisible = true">Thay đổi</span>
+                  <span class="fr text-right mrr-10">{{cartEmployee.phone}}</span>
+                  <br class="clear">
+                </div>
+                <div class="body" v-if="!cartEmployee.name">
+                  <span @click="popupFindEmployeeVisible = true">Chọn nhân viên</span>
+                </div>
+              </el-form-item>
               <el-form-item class="info-customer" :xs="24">
                 <div class="title">Thông tin khách hàng</div>
                 <div class="body">
@@ -14,7 +26,7 @@
                     <br class="clear">
                 </div>
               </el-form-item>
-              <el-form-item class="info-cart" :xs="24">
+              <el-form-item class="info-cart" :xs="24"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                >
                 <div class="title">Thông tin đơn hàng</div>
                 <div class="body">
                   <el-col v-for="item in cartItems" :key="item.id" :span="24" class="product-item">
@@ -27,7 +39,7 @@
                       </div>
                       <div class="qty-action">
                         <div class="qty fl">
-                          <el-input size="mini" v-model="item.qty" @change="updateTotal"></el-input>
+                          <el-input-number size="mini" v-model="item.qty" @change="updateTotal"></el-input-number>
                         </div>
                         <div class="action fr">
                           <el-button size="mini" icon="el-icon-delete" @click="removeItemCart(item)"></el-button>
@@ -35,6 +47,13 @@
                         <br class="clearmini" />
                       </div>
                     </div>
+                  </el-col>
+                  <el-col :span="24" class="list-discount">
+                    <span>Giảm giá: </span>
+                    <el-radio-group v-model="discount" @change="updateTotal()" size="small">
+                      <el-radio-button :label="0">Không</el-radio-button>
+                      <el-radio-button v-for="discount in discounts" :key="discount.key" :label="discount.value">{{discount.value}}%</el-radio-button>
+                    </el-radio-group>
                   </el-col>
                   <el-col :span="24" class="total text-right">
                     <span><b class="color-red">Tổng tiền : {{total | formatMoney}}</b></span>
@@ -54,11 +73,35 @@
       </el-row>
     </div>
 
+    <!-- Select find employee by phone -->
+    <el-dialog :visible.sync="popupFindEmployeeVisible" width="80%">
+      <el-form ref="ruleForm" label-width="120px" class="demo-ruleForm">
+        <el-row>
+          <el-input v-model="findEmployee.keyword" placeholder="Nhập số điện thoại"></el-input>
+        </el-row>
+        <el-row>
+          <ul class="list-customer">
+            <li v-for="item in employees" :key="item.id" @click="setEmployeeForCart(item),popupFindEmployeeVisible = false ">
+              <span class="fl text-left">{{item.name}}</span>
+              <span class="fr text-right">{{item.phone}}</span>
+              <br class="clear">
+            </li>
+          </ul>
+        </el-row>
+        <el-row class="text-center">
+          <el-button type="primary" class="mrt-10" @click="findListEmployee">Tìm nhân viên</el-button>
+        </el-row>
+      </el-form>
+    </el-dialog>
+
     <!-- Information order -->
     <el-dialog :visible.sync="popupShowStatusOrderVisible" width="80%" :before-close="handleClose">
       <el-container>
         <el-row>
           <el-col :xs="24" class="mrb-10 text-center color-success">{{message}}</el-col>
+          <el-col :xs="24" class="mrb-10 text-center">
+            <el-button>In đơn hàng</el-button>
+          </el-col>
           <el-col :xs="24" class="mrb-10 text-center">
             <router-link :to="'/order/history'">
               <el-button>Lịch sử đơn hàng</el-button>
@@ -74,12 +117,18 @@
     </el-dialog>
   </div>
 </template>
-
 <style lang="scss" scoped>
+  .list-employee li {
+    border-bottom: 1px solid #DCDFE6;
+    padding: 5px 0px;
+  }
+  .list-employee li:last-child {
+    border-bottom: none;
+  }
   .title {
     font-weight: bold;
   }
-  .info-customer {
+  .info-customer, .info-employee {
     .body {
       font-size: 12px;
       border-radius: 2px;
@@ -104,23 +153,58 @@
   .el-button+.el-button {
     margin-left: 0px;
   }
+  .list-discount {
+    button {
+      margin-right: 5px;
+    }
+  }
 </style>
 
 <script>
 import 'element-ui/lib/theme-chalk/display.css'
 import { create } from '@/api/order'
+import { getEmployee } from '@/api/employee'
 import Cookies from 'js-cookie'
 
 export default {
   name: 'Cart',
   data() {
     return {
+      discounts: [
+        {
+          key: 1,
+          value: 10
+        },
+        {
+          key: 2,
+          value: 20
+        },
+        {
+          key: 3,
+          value: 30
+        },
+        {
+          key: 4,
+          value: 40
+        },
+        {
+          key: 5,
+          value: 50
+        }
+      ],
       total: 0,
       listLoading: true,
       cartItems: [],
       cartCustomer: [],
+      cartEmployee: {},
+      findEmployee: {
+        keyword: null
+      },
+      employees: [],
+      discount: 0,
       message: '',
-      popupShowStatusOrderVisible: false
+      popupShowStatusOrderVisible: false,
+      popupFindEmployeeVisible: false
     }
   },
   created() {
@@ -131,11 +215,23 @@ export default {
     this.cartCustomer = JSON.parse(Cookies.get('cartCustomer'))
   },
   methods: {
+    setEmployeeForCart(item) {
+      this.cartEmployee = item
+    },
+    findListEmployee() {
+      getEmployee(this.findCustomer).then(response => {
+        this.employees = response.data
+      })
+    },
     updateTotal() {
       this.total = 0
       this.cartItems.forEach(item => {
         this.total += item.price * item.qty
       })
+      // Minus for discount
+      if (this.discount > 0) {
+        this.total = this.total - ((this.total * this.discount)/100)
+      }
     },
     removeItemCart(itemCart) {
       const cartItems = this.cartItems
@@ -156,14 +252,15 @@ export default {
       this.loading = true
       const data = {
         'cart_items': this.cartItems,
-        'cart_customer': this.cartCustomer
+        'cart_customer': this.cartCustomer,
+        'cart_discount': this.discount,
+        'cart_employee': this.cartEmployee
       }
       create(data).then(response => {
         Cookies.set('cartItems', [])
         Cookies.set('cartCustomer', '')
         this.popupShowStatusOrderVisible = true
         this.message = response.message
-        console.log(this.message)
       }).catch(error => {
         if (error.response) {
           this.$notify({
