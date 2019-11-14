@@ -114,19 +114,19 @@ export const asyncRoutes = [
         path: 'history',
         component: () => import('@/views/order/history'),
         name: 'Lịch sử đơn hàng',
-        meta: { title: 'historyOrder', noCache: true, affix: true }
+        meta: { title: 'historyOrder', noCache: true, affix: true, roles: [ 'brand_manager']  }
       },
       {
         path: '',
         component: () => import('@/views/order/index'),
         name: 'Tạo đơn hàng',
-        meta: { title: 'Tạo đơn hàng', noCache: true, affix: true }
+        meta: { title: 'Tạo đơn hàng', noCache: true, affix: true, roles: [ 'brand_manager']  }
       },
       {
         path: 'cart',
         component: () => import('@/views/order/cart'),
         name: 'Giỏ hàng',
-        meta: { title: 'cart', icon: 'guide', noCache: true, affix: true },
+        meta: { title: 'cart', icon: 'guide', noCache: true, affix: true, roles: [ 'brand_manager']  },
         hidden: true
       }
     ]
@@ -143,20 +143,20 @@ export const asyncRoutes = [
         path: '',
         component: () => import('@/views/customer/index'),
         name: 'Khách hàng',
-        meta: { title: 'customer', icon: 'user', noCache: true, affix: true }
+        meta: { title: 'customer', icon: 'user', noCache: true, affix: true, roles: [ 'brand_manager']  }
       },
       {
         path: 'create',
         component: () => import('@/views/customer/create'),
         name: 'Tạo khách hàng',
-        meta: { title: 'createCustomer', icon: 'guide', noCache: true, affix: true },
+        meta: { title: 'createCustomer', icon: 'guide', noCache: true, affix: true, roles: [ 'brand_manager']  },
         hidden: true
       },
       {
         path: 'edit/:id(\\d+)',
         component: () => import('@/views/customer/edit'),
         name: 'Sửa khách hàng',
-        meta: { title: 'editCustomer', icon: 'guide', noCache: true, affix: true },
+        meta: { title: 'editCustomer', icon: 'guide', noCache: true, affix: true, roles: [ 'brand_manager']  },
         hidden: true
       }
     ]
@@ -173,20 +173,20 @@ export const asyncRoutes = [
         path: '',
         component: () => import('@/views/service/index'),
         name: 'Dịch vụ',
-        meta: { title: 'service', icon: 'guide', noCache: true, affix: true }
+        meta: { title: 'service', icon: 'guide', noCache: true, affix: true, roles: [ 'brand_manager']  }
       },
       {
         path: 'create',
         component: () => import('@/views/service/create'),
         name: 'Tạo dịch vụ',
-        meta: { title: 'createService', icon: 'guide', noCache: true, affix: true },
+        meta: { title: 'createService', icon: 'guide', noCache: true, affix: true, roles: [ 'brand_manager']  },
         hidden: true
       },
       {
         path: 'edit/:id(\\d+)',
         component: () => import('@/views/service/edit'),
         name: 'Sửa dịch vụ',
-        meta: { title: 'editService', icon: 'guide', noCache: true, affix: true },
+        meta: { title: 'editService', icon: 'guide', noCache: true, affix: true, roles: [ 'brand_manager'] },
         hidden: true
       }
     ]
@@ -194,7 +194,6 @@ export const asyncRoutes = [
   {
     path: '/brand',
     component: Layout,
-    redirect: 'noredirect',
     meta: {
       roles: ['admin']
     },
