@@ -91,14 +91,23 @@ export const constantRoutes = [
         meta: { title: 'dashboard', icon: 'dashboard', noCache: true, affix: true }
       }
     ]
-  },
+  }
+]
+
+/**
+ * asyncRoutes
+ * the routes that need to be dynamically loaded based on user roles
+ */
+export const asyncRoutes = [
+  { path: '*', redirect: '/404', hidden: true },
   {
     path: '/order',
     component: Layout,
     redirect: 'noredirect',
     meta: {
       title: 'Quản lý đơn hàng',
-      icon: 'component'
+      icon: 'component',
+      roles: ['brand_manager']
     },
     children: [
       {
@@ -126,6 +135,9 @@ export const constantRoutes = [
     path: '/customer',
     component: Layout,
     redirect: 'noredirect',
+    meta: {
+      roles: ['brand_manager']
+    },
     children: [
       {
         path: '',
@@ -153,6 +165,9 @@ export const constantRoutes = [
     path: '/service',
     component: Layout,
     redirect: 'noredirect',
+    meta: {
+      roles: ['brand_manager']
+    },
     children: [
       {
         path: '',
@@ -175,15 +190,7 @@ export const constantRoutes = [
         hidden: true
       }
     ]
-  }
-]
-
-/**
- * asyncRoutes
- * the routes that need to be dynamically loaded based on user roles
- */
-export const asyncRoutes = [
-  { path: '*', redirect: '/404', hidden: true },
+  },
   {
     path: '/brand',
     component: Layout,
