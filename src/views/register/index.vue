@@ -15,7 +15,7 @@
               <el-form-item required>
                 <el-input v-model="postForm.name" placeholder="Họ tên của bạn" type="text" auto-complete="on"/>
               </el-form-item>
-              <el-form-item required>
+              <el-form-item>
                 <el-input v-model="postForm.email" placeholder="Email" type="text" auto-complete="on"/>
               </el-form-item>
               <div class="title">Thông tin cửa hàng</div>
