@@ -60,7 +60,7 @@
     <el-dialog
       title="Warning"
       :visible.sync="dialogVisible"
-      width="30%"
+      width="80%"
       center
     >
       <span>Bạn có muốn xóa dử liệu này ?</span>
