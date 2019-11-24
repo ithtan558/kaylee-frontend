@@ -10,7 +10,7 @@
                 <div class="title">Thông tin nhân viên</div>
                 <div class="body" v-if="cartEmployee.name">
                   <span class="fl">{{cartEmployee.name}}</span>
-                  <span class="fr text-right" @click="popupFindEmployeeVisible = true">Thay đổi</span>
+                  <a class="fr text-right" @click="popupFindEmployeeVisible = true">Thay đổi</a>
                   <span class="fr text-right mrr-10">{{cartEmployee.phone}}</span>
                   <br class="clear">
                 </div>
@@ -50,10 +50,10 @@
                   </el-col>
                   <el-col :span="24" class="list-discount">
                     <span>Giảm giá: </span>
-                    <el-radio-group v-model="discount" @change="updateTotal()" size="small">
-                      <el-radio-button :label="0">Không</el-radio-button>
-                      <el-radio-button v-for="discount in discounts" :key="discount.key" :label="discount.value">{{discount.value}}%</el-radio-button>
-                    </el-radio-group>
+                    <el-input v-model="discount" @change="updateTotal()">
+                      <template slot="append">%</template>
+                    </el-input>
+                    <br class="clear">
                   </el-col>
                   <el-col :span="24" class="total text-right">
                     <span><b class="color-red">Tổng tiền : {{total | formatMoney}}</b></span>
@@ -182,14 +182,6 @@ export default {
         {
           key: 3,
           value: 30
-        },
-        {
-          key: 4,
-          value: 40
-        },
-        {
-          key: 5,
-          value: 50
         }
       ],
       total: 0,
@@ -224,6 +216,7 @@ export default {
       })
     },
     updateTotal() {
+      console.log('123')
       this.total = 0
       this.cartItems.forEach(item => {
         this.total += item.price * item.qty

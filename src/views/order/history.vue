@@ -3,7 +3,7 @@
     <div class="createPost-main-container">
       <el-row :gutter="10">
         <el-col :xs="24" :sm="14">
-          <h3 class="text-center mr-0">Lịch sử đơn hàng</h3>
+          <h3 class="text-center">Lịch sử đơn hàng</h3>
           <el-row class="w100">
             <el-col :xs="24">
               <el-card class="box-card w100" v-for="item in list" :key="item.id">
