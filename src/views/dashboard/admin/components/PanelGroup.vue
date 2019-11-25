@@ -1,8 +1,19 @@
 <template>
   <div>
     <el-row :gutter="40" class="panel-group">
-      <!--<el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
-        <div class="card-panel">
+      <el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
+        <div class="card-panel" @click="showPopupLater">
+          <div class="card-panel-icon-wrapper icon-chart">
+            <svg-icon icon-class="chart" class-name="card-panel-icon" />
+          </div>
+          <div class="card-panel-description">
+            <div class="card-panel-text">Báo cáo doanh thu</div>
+            <count-to :start-val="0" :end-val="100000" :duration="2600" class="card-panel-num" />
+          </div>
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
+        <div class="card-panel" @click="showPopupLater">
           <div class="card-panel-icon-wrapper icon-calendar">
             <svg-icon icon-class="calendar" class-name="card-panel-icon" />
           </div>
@@ -10,10 +21,10 @@
             <div class="card-panel-text">
               {{ $t('booking') }}
             </div>
-            <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
+            <count-to :start-val="0" :end-val="3" :duration="2600" class="card-panel-num" />
           </div>
         </div>
-      </el-col>-->
+      </el-col>
       <el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
         <div class="card-panel">
           <div class="card-panel-icon-wrapper icon-calculator">
@@ -54,7 +65,7 @@
       </el-col>-->
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel">
-          <div class="card-panel-icon-wrapper">
+          <div class="card-panel-icon-wrapper hidden-xs-only">
             <i class="el-icon-s-order"></i>
           </div>
           <div class="card-panel-description">
@@ -67,8 +78,8 @@
         </div>
       </el-col>
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-        <div class="card-panel">
-          <div class="card-panel-icon-wrapper">
+        <div class="card-panel" @click="showPopupLater">
+          <div class="card-panel-icon-wrapper hidden-xs-only">
             <i class="el-icon-printer"></i>
           </div>
           <div class="card-panel-description">
@@ -80,7 +91,7 @@
       </el-col>
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel">
-          <div class="card-panel-icon-wrapper">
+          <div class="card-panel-icon-wrapper hidden-xs-only">
             <i class="el-icon-user"></i>
           </div>
           <div class="card-panel-description">
@@ -93,8 +104,8 @@
         </div>
       </el-col>
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
-        <div class="card-panel">
-          <div class="card-panel-icon-wrapper">
+        <div class="card-panel" @click="showPopupLater">
+          <div class="card-panel-icon-wrapper hidden-xs-only">
             <i class="el-icon-price-tag"></i>
           </div>
           <div class="card-panel-description">
@@ -106,7 +117,7 @@
       </el-col>
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel">
-          <div class="card-panel-icon-wrapper">
+          <div class="card-panel-icon-wrapper hidden-xs-only">
             <i class="el-icon-location"></i>
           </div>
           <div class="card-panel-description">
@@ -120,7 +131,7 @@
       </el-col>
       <el-col :xs="12" :sm="12" :lg="6" class="card-panel-col">
         <div class="card-panel">
-          <div class="card-panel-icon-wrapper">
+          <div class="card-panel-icon-wrapper hidden-xs-only">
             <i class="el-icon-service"></i>
           </div>
           <div class="card-panel-description">
@@ -190,6 +201,13 @@ export default {
         this.countOrder = response.data
       }).catch(err => {
         console.log(err)
+      })
+    },
+    showPopupLater() {
+      this.$notify({
+        dangerouslyUseHTMLString: true,
+        message: 'Chức năng đang phát triển',
+        type: 'warning'
       })
     }
   }

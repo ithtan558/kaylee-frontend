@@ -198,7 +198,6 @@
 </style>
 
 <script>
-import 'element-ui/lib/theme-chalk/display.css'
 import { fetchList as fetchListService } from '@/api/service'
 import { getCustomer } from '@/api/customer'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination

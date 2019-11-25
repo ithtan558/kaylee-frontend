@@ -10,12 +10,12 @@
                 <div class="title">Thông tin nhân viên</div>
                 <div class="body" v-if="cartEmployee.name">
                   <span class="fl">{{cartEmployee.name}}</span>
-                  <a class="fr text-right" @click="popupFindEmployeeVisible = true">Thay đổi</a>
+                  <a class="fr text-right underline color-success" @click="popupFindEmployeeVisible = true">Thay đổi</a>
                   <span class="fr text-right mrr-10">{{cartEmployee.phone}}</span>
                   <br class="clear">
                 </div>
                 <div class="body" v-if="!cartEmployee.name">
-                  <span @click="popupFindEmployeeVisible = true">Chọn nhân viên</span>
+                  <span @click="showPopupFindEmployeeVisible" class="underline color-success">Chọn nhân viên</span>
                 </div>
               </el-form-item>
               <el-form-item class="info-customer" :xs="24">
@@ -23,7 +23,7 @@
                 <div class="body">
                   <span class="fl">{{cartCustomer.name ? cartCustomer.name : 'Khách lẽ'}}</span>
                   <span class="fr text-right">{{cartCustomer.phone}}</span>
-                    <br class="clear">
+                  <br class="clear">
                 </div>
               </el-form-item>
               <el-form-item class="info-cart" :xs="24"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                >
@@ -80,7 +80,7 @@
           <el-input v-model="findEmployee.keyword" placeholder="Nhập số điện thoại"></el-input>
         </el-row>
         <el-row>
-          <ul class="list-customer">
+          <ul class="list-employee">
             <li v-for="item in employees" :key="item.id" @click="setEmployeeForCart(item),popupFindEmployeeVisible = false ">
               <span class="fl text-left">{{item.name}}</span>
               <span class="fr text-right">{{item.phone}}</span>
@@ -98,9 +98,9 @@
     <el-dialog :visible.sync="popupShowStatusOrderVisible" width="80%" :before-close="handleClose">
       <el-container>
         <el-row>
-          <el-col :xs="24" class="mrb-10 text-center color-success">{{message}}</el-col>
+          <el-col :xs="24" class="mrb-10 text-center color-success"><b>{{message}}</b></el-col>
           <el-col :xs="24" class="mrb-10 text-center">
-            <el-button>In đơn hàng</el-button>
+            <el-button @click="showPopupLater">In đơn hàng</el-button>
           </el-col>
           <el-col :xs="24" class="mrb-10 text-center">
             <router-link :to="'/order/history'">
@@ -161,7 +161,6 @@
 </style>
 
 <script>
-import 'element-ui/lib/theme-chalk/display.css'
 import { create } from '@/api/order'
 import { getEmployee } from '@/api/employee'
 import Cookies from 'js-cookie'
@@ -207,6 +206,10 @@ export default {
     this.cartCustomer = JSON.parse(Cookies.get('cartCustomer'))
   },
   methods: {
+    showPopupFindEmployeeVisible() {
+      this.popupFindEmployeeVisible = true
+      this.findListEmployee()
+    },
     setEmployeeForCart(item) {
       this.cartEmployee = item
     },
@@ -266,6 +269,13 @@ export default {
     },
     handleClose() {
       this.$router.push({ path: '/order' })
+    },
+    showPopupLater() {
+      this.$notify({
+        dangerouslyUseHTMLString: true,
+        message: 'Chức năng đang phát triển',
+        type: 'warning'
+      })
     }
   }
 }

@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import 'element-ui/lib/theme-chalk/display.css'
 import { Navbar, Sidebar, AppMain, Footer } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
 import { mapState } from 'vuex'

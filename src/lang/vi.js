@@ -1,5 +1,8 @@
 export default {
   route: {
+    serviceCategory: 'Loại dịch vụ',
+    createCategoryService: 'Tạo loại dịch vụ',
+    editCategoryService: 'Sửa loại dịch vụ',
     employee: 'Nhân viên',
     createEmployee: 'Tạo nhân viên',
     editEmployee: 'Sửa nhân viên',

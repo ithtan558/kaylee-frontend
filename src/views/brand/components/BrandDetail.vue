@@ -40,6 +40,7 @@
                 :multiple="false"
                 :limit="1"
               >
+                <div class="el-upload__tip" slot="tip">Định dạng jpg/jpeg/png</div>
               </el-upload>
             </el-form-item>
           </el-col>

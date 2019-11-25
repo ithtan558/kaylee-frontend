@@ -13,9 +13,9 @@
             <el-form-item label="Mật khẩu:">
               <el-input v-model="postForm.password" placeholder="Mật khẩu đăng nhập" type="password" auto-complete="on"/>
             </el-form-item>
-            <el-form-item label="Email:">
+            <!--<el-form-item label="Email:">
               <el-input v-model="postForm.email" size="small" clearable remote placeholder="Email" />
-            </el-form-item>
+            </el-form-item>-->
             <el-form-item label="Năm sinh:">
               <el-date-picker
                 v-model="postForm.birthday"
@@ -25,8 +25,8 @@
               </el-date-picker>
             </el-form-item>
             <el-form-item label="Giới tính:">
-              <el-radio v-model="postForm.gender" label="1">Nam</el-radio>
-              <el-radio v-model="postForm.gender" label="2">Nữ</el-radio>
+              <el-radio v-model="postForm.gender" :label="1">Nam</el-radio>
+              <el-radio v-model="postForm.gender" :label="2">Nữ</el-radio>
             </el-form-item>
             <el-form-item label="Địa chỉ:">
               <el-input v-model="postForm.address" size="small" clearable remote placeholder="Địa chỉ" />
@@ -42,6 +42,7 @@
                 :multiple="false"
                 :limit="1"
               >
+                <div class="el-upload__tip" slot="tip">Định dạng jpg/jpeg/png</div>
               </el-upload>
             </el-form-item>
             <el-form-item label="Chi nhánh:" required>
@@ -131,6 +132,7 @@ export default {
     fetchData(id) {
       fetchEmployee(id).then(response => {
         this.postForm = response.data
+        this.postForm.gent
         if (response.data.image != null) {
           this.imageFileList.push({
             url: process.env.VUE_APP_API + process.env.VUE_APP_DIR_UPLOAD + response.data.image

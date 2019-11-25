@@ -64,7 +64,6 @@
 </style>
 
 <script>
-import 'element-ui/lib/theme-chalk/display.css'
 import { fetchList } from '@/api/order'
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 

@@ -192,6 +192,36 @@ export const asyncRoutes = [
     ]
   },
   {
+    path: '/service-category',
+    component: Layout,
+    redirect: 'noredirect',
+    meta: {
+      roles: ['brand_manager']
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/serviceCategory/index'),
+        name: 'Loại Dịch vụ',
+        meta: { title: 'serviceCategory', icon: 'guide', noCache: true, affix: true, roles: [ 'brand_manager']  }
+      },
+      {
+        path: 'create',
+        component: () => import('@/views/serviceCategory/create'),
+        name: 'Tạo loại dịch vụ',
+        meta: { title: 'createCategoryService', icon: 'guide', noCache: true, affix: true, roles: [ 'brand_manager']  },
+        hidden: true
+      },
+      {
+        path: 'edit/:id(\\d+)',
+        component: () => import('@/views/serviceCategory/edit'),
+        name: 'Sửa loại dịch vụ',
+        meta: { title: 'editCategoryService', icon: 'guide', noCache: true, affix: true, roles: [ 'brand_manager'] },
+        hidden: true
+      }
+    ]
+  },
+  {
     path: '/brand',
     component: Layout,
     meta: {

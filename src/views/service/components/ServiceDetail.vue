@@ -31,13 +31,17 @@
               </el-select>
             </el-form-item>
             <el-form-item label="Thời gian phục vụ:" required>
-              <el-input v-model="postForm.time" size="small" clearable remote placeholder="Thời gian phục vụ" />
+              <el-input v-model="postForm.time" size="small" clearable remote placeholder="Thời gian phục vụ">
+                <template slot="append">Phút</template>
+              </el-input>
             </el-form-item>
             <el-form-item label="Giá:" required>
-              <el-input type="number" v-model="postForm.price" size="small" clearable remote placeholder="Giá" />
+              <el-input type="number" v-model="postForm.price" size="small" clearable remote placeholder="Giá">
+                <template slot="append">VND</template>
+              </el-input>
             </el-form-item>
             <el-form-item label="Mô tả:">
-              <el-input v-model="postForm.description" size="small" clearable remote placeholder="Mô tả" />
+              <el-input type="textarea" :rows="2" v-model="postForm.description" size="small" clearable remote placeholder="Mô tả" />
             </el-form-item>
             <el-form-item label="Hình ảnh:" prop="image">
               <el-upload
@@ -50,6 +54,7 @@
                 :multiple="false"
                 :limit="1"
               >
+                <div class="el-upload__tip" slot="tip">Định dạng jpg/jpeg/png</div>
               </el-upload>
             </el-form-item>
           </el-col>
@@ -83,7 +88,7 @@
 <script>
   import { fetchAll as fetchAllBrand } from '@/api/brand'
   import { fetchAll as fetchAllServiceCategory } from '@/api/serviceCategory'
-  import { fetchService, create } from '@/api/service'
+  import { fetchService, create, deleteItem } from '@/api/service'
 
   const defaultForm = {
     id: undefined,
@@ -221,7 +226,7 @@
           })
         })
         this.dialogVisible = false
-        this.$router.push({ path: '/brand/' })
+        this.$router.push({ path: '/service/' })
       }
     }
   }

@@ -8,11 +8,6 @@
           </router-link>
           <div class="list-employee">
             <el-row>
-              <el-col class="title-list">
-                <span>Danh sách nhân viên</span>
-              </el-col>
-            </el-row>
-            <el-row>
               <el-col v-for="item in list" :key="item.id" :span="24" class="employee-item">
                 <router-link :to="'/employee/edit/' + item.id">
                   <span class="fl name">{{item.name}}</span>

@@ -1,8 +1,6 @@
 <template>
   <div class="dashboard-editor-container">
-
     <panel-group />
-
   </div>
 </template>
 
