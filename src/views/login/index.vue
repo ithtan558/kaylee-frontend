@@ -15,7 +15,7 @@
               v-model="loginForm.account"
               :placeholder="$t('login.account')"
               name="account"
-              type="text"
+              type="number"
               auto-complete="on"
             />
           </el-form-item>
@@ -51,7 +51,7 @@
           <el-row class="mrt-15 text-center">
             <span class="margin-right-0 font-size-14">Bạn chưa có tài khoản?</span>
             <router-link :to="'/register'">
-              <span class="margin-right-0 link-type font-size-14">Đăng ký</span>
+              <span class="margin-right-0 link-type font-size-14 underline">Đăng ký</span>
             </router-link>
           </el-row>
         </div>

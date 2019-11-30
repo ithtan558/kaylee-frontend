@@ -16,14 +16,14 @@
             <!--<el-form-item label="Email:">
               <el-input v-model="postForm.email" size="small" clearable remote placeholder="Email" />
             </el-form-item>-->
-            <el-form-item label="Năm sinh:">
+            <!--<el-form-item label="Năm sinh:">
               <el-date-picker
                 v-model="postForm.birthday"
                 type="date"
                 format="yyyy-MM-dd"
                 value-format="yyyy-MM-dd">
               </el-date-picker>
-            </el-form-item>
+            </el-form-item>-->
             <el-form-item label="Giới tính:">
               <el-radio v-model="postForm.gender" :label="1">Nam</el-radio>
               <el-radio v-model="postForm.gender" :label="2">Nữ</el-radio>
@@ -90,10 +90,10 @@ import { fetchAll as fetchAllBrand } from '@/api/brand'
 
 const defaultForm = {
   name: '',
-  email: '',
+  /*email: '',*/
   phone: '',
   password: '',
-  birthday: '',
+  /*birthday: '',*/
   gender: '',
   address: '',
   image: '',
@@ -167,8 +167,8 @@ export default {
           formData.append('name', this.postForm.name)
           formData.append('phone', this.postForm.phone)
           formData.append('password', this.postForm.password)
-          formData.append('email', this.postForm.email)
-          formData.append('birthday', this.postForm.birthday)
+          /*formData.append('email', this.postForm.email)
+          formData.append('birthday', this.postForm.birthday)*/
           formData.append('gender', this.postForm.gender)
           formData.append('address', this.postForm.address)
           formData.append('image', this.postForm.image)

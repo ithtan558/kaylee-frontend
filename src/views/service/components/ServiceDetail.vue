@@ -10,7 +10,7 @@
             <el-form-item label="Mã dịch vụ:" required>
               <el-input v-model="postForm.code" size="small" clearable remote placeholder="Mã dịch vụ" />
             </el-form-item>
-            <el-form-item label="Loại dịch vụ:" required>
+            <!--<el-form-item label="Loại dịch vụ:" required>
               <el-select v-model="postForm.category_id" placeholder="Select" clearable style="width: 400px;">
                 <el-option
                   v-for="item in categories"
@@ -19,7 +19,7 @@
                   :value="item.value"
                 />
               </el-select>
-            </el-form-item>
+            </el-form-item>-->
             <el-form-item label="Chi nhánh:" required>
               <el-select v-model="postForm.brand_ids" multiple placeholder="Select" clearable style="width: 400px;">
                 <el-option
@@ -86,150 +86,150 @@
 </template>
 
 <script>
-  import { fetchAll as fetchAllBrand } from '@/api/brand'
-  import { fetchAll as fetchAllServiceCategory } from '@/api/serviceCategory'
-  import { fetchService, create, deleteItem } from '@/api/service'
+import { fetchAll as fetchAllBrand } from '@/api/brand'
+import { fetchAll as fetchAllServiceCategory } from '@/api/serviceCategory'
+import { fetchService, create, deleteItem } from '@/api/service'
 
-  const defaultForm = {
-    id: undefined,
-    name: '',
-    code: '',
-    description: '',
-    brand_ids: null,
-    category_id: null,
-    time: null,
-    price: null,
-    image: ''
-  }
+const defaultForm = {
+  id: undefined,
+  name: '',
+  code: '',
+  description: '',
+  brand_ids: null,
+  category_id: null,
+  time: null,
+  price: null,
+  image: ''
+}
 
-  export default {
-    name: 'ServiceDetail',
-    props: {
-      isEdit: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data() {
-      return {
-        postForm: Object.assign({}, defaultForm),
-        loading: false,
-        rules: {
-        },
-        tempRoute: {},
-        categories: [],
-        brands: [],
-        imageFileList: [],
-        dialogVisible: false
-      }
-    },
-    computed: {
-    },
-    created() {
-      if (this.isEdit) {
-        const id = this.$route.params && this.$route.params.id
-        this.fetchData(id)
-      } else {
-        this.postForm = Object.assign({}, defaultForm)
-      }
-      this.getCategories()
-      this.getBrands()
-      this.tempRoute = Object.assign({}, this.$route)
-    },
-    methods: {
-      fetchData(id) {
-        fetchService(id).then(response => {
-          this.postForm = response.data
-          if (response.data.image != null) {
-            this.imageFileList.push({
-              url: process.env.VUE_APP_API + process.env.VUE_APP_DIR_UPLOAD + response.data.image
-            })
-            console.log(this.imageFileList)
-          }
-        }).catch(err => {
-          console.log(err)
-        })
+export default {
+  name: 'ServiceDetail',
+  props: {
+    isEdit: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      postForm: Object.assign({}, defaultForm),
+      loading: false,
+      rules: {
       },
-      getCategories() {
-        fetchAllServiceCategory().then(response => {
-          response.data.forEach(element => {
-            this.categories.push({
-              label: element.name,
-              value: element.id
-            })
+      tempRoute: {},
+      categories: [],
+      brands: [],
+      imageFileList: [],
+      dialogVisible: false
+    }
+  },
+  computed: {
+  },
+  created() {
+    if (this.isEdit) {
+      const id = this.$route.params && this.$route.params.id
+      this.fetchData(id)
+    } else {
+      this.postForm = Object.assign({}, defaultForm)
+    }
+    /*this.getCategories()*/
+    this.getBrands()
+    this.tempRoute = Object.assign({}, this.$route)
+  },
+  methods: {
+    fetchData(id) {
+      fetchService(id).then(response => {
+        this.postForm = response.data
+        if (response.data.image != null) {
+          this.imageFileList.push({
+            url: process.env.VUE_APP_API + process.env.VUE_APP_DIR_UPLOAD + response.data.image
           })
-        }).catch(err => {
-          console.log(err)
-        })
-      },
-      getBrands() {
-        fetchAllBrand().then(response => {
-          response.data.forEach(element => {
-            this.brands.push({
-              label: element.name,
-              value: element.id
-            })
+          console.log(this.imageFileList)
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getCategories() {
+      fetchAllServiceCategory().then(response => {
+        response.data.forEach(element => {
+          this.categories.push({
+            label: element.name,
+            value: element.id
           })
-        }).catch(err => {
-          console.log(err)
         })
-      },
-      submitForm() {
-        this.postForm.display_time = parseInt(this.display_time / 1000)
-        this.$refs.postForm.validate(valid => {
-          if (valid) {
-            this.loading = true
-            const formData = new FormData()
-            formData.append('id', this.postForm.id)
-            formData.append('name', this.postForm.name)
-            formData.append('code', this.postForm.code)
-            formData.append('description', this.postForm.description)
-            formData.append('brand_ids', this.postForm.brand_ids)
-            formData.append('category_id', this.postForm.category_id)
-            formData.append('time', this.postForm.time)
-            formData.append('price', this.postForm.price)
-            formData.append('image', this.postForm.image)
-            create(this.isEdit, formData, this.postForm.id).then(response => {
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    getBrands() {
+      fetchAllBrand().then(response => {
+        response.data.forEach(element => {
+          this.brands.push({
+            label: element.name,
+            value: element.id
+          })
+        })
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    submitForm() {
+      this.postForm.display_time = parseInt(this.display_time / 1000)
+      this.$refs.postForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          const formData = new FormData()
+          formData.append('id', this.postForm.id)
+          formData.append('name', this.postForm.name)
+          formData.append('code', this.postForm.code)
+          formData.append('description', this.postForm.description)
+          formData.append('brand_ids', this.postForm.brand_ids)
+          formData.append('category_id', this.postForm.category_id)
+          formData.append('time', this.postForm.time)
+          formData.append('price', this.postForm.price)
+          formData.append('image', this.postForm.image)
+          create(this.isEdit, formData, this.postForm.id).then(response => {
+            this.$notify({
+              dangerouslyUseHTMLString: true,
+              message: response.message,
+              type: 'success'
+            })
+
+            this.$router.push({ path: '/service/' })
+          }).catch(error => {
+            if (error.response) {
               this.$notify({
                 dangerouslyUseHTMLString: true,
-                message: response.message,
-                type: 'success'
+                message: error.response.data.message,
+                type: 'error'
               })
-
-              this.$router.push({ path: '/service/' })
-            }).catch(error => {
-              if (error.response) {
-                this.$notify({
-                  dangerouslyUseHTMLString: true,
-                  message: error.response.data.message,
-                  type: 'error'
-                })
-              }
-            }).then(() => {
-              this.loading = false
-            })
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-      },
-      showPopup(id) {
-        this.dialogVisible = true
-        this.id = id
-      },
-      confirmDelete() {
-        deleteItem(this.id).then(response => {
-          this.$notify({
-            message: response.message,
-            type: 'success'
+            }
+          }).then(() => {
+            this.loading = false
           })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    showPopup(id) {
+      this.dialogVisible = true
+      this.id = id
+    },
+    confirmDelete() {
+      deleteItem(this.id).then(response => {
+        this.$notify({
+          message: response.message,
+          type: 'success'
         })
-        this.dialogVisible = false
-        this.$router.push({ path: '/service/' })
-      }
+      })
+      this.dialogVisible = false
+      this.$router.push({ path: '/service/' })
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

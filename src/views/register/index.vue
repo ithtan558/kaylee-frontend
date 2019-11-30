@@ -19,11 +19,14 @@
                 <el-form-item>
                   <el-input v-model="postForm.email" placeholder="Email" type="text" auto-complete="on"/>
                 </el-form-item>-->
-                <div class="title">Thông tin cửa hàng</div>
+                <div class="title">Thông tin cá nhân và cửa hàng</div>
+                <el-form-item required label="Họ tên của bạn">
+                  <el-input v-model="postForm.name" placeholder="Họ tên của bạn" type="text" auto-complete="on"/>
+                </el-form-item>
                 <el-form-item required label="Tên cửa hàng của bạn">
                   <el-input v-model="postForm.name_client" placeholder="Tên cửa hàng của bạn" type="text" auto-complete="on"/>
                 </el-form-item>
-                <el-form-item label="Số điện thoại cửa hàng">
+                <el-form-item required label="Số điện thoại cửa hàng">
                   <el-input v-model="postForm.phone_client" placeholder="Số điện thoại cửa hảng" type="text" auto-complete="on"/>
                 </el-form-item>
                 <el-form-item required label="Địa chỉ cửa hàng của bạn">
@@ -39,10 +42,7 @@
                     <el-option v-for="(item) in districts" :key="item.id" :label="item.name" :value="item.id" />
                   </el-select>
                 </el-form-item>
-                <div class="title">Thông tin cá nhân và đăng nhập</div>
-                <el-form-item required label="Họ tên của bạn">
-                  <el-input v-model="postForm.name" placeholder="Họ tên của bạn" type="text" auto-complete="on"/>
-                </el-form-item>
+                <div class="title">Thông tin đăng nhập</div>
                 <el-form-item required label="Số điện thoại đăng nhập">
                   <el-input v-model="postForm.phone" placeholder="Số điện thoại đăng nhập" type="text" auto-complete="on"/>
                 </el-form-item>

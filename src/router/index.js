@@ -100,6 +100,22 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   { path: '*', redirect: '/404', hidden: true },
+  /*{
+    path: '/report',
+    component: Layout,
+    redirect: 'noredirect',
+    meta: {
+      roles: ['manager, brand_manager']
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/report/index'),
+        name: 'Thống kê',
+        meta: { title: 'report', icon: 'chart', noCache: true, affix: true, roles: ['manager, brand_manager'] }
+      }
+    ]
+  },*/
   {
     path: '/order',
     component: Layout,
@@ -191,7 +207,7 @@ export const asyncRoutes = [
       }
     ]
   },
-  {
+  /*{
     path: '/service-category',
     component: Layout,
     redirect: 'noredirect',
@@ -220,7 +236,7 @@ export const asyncRoutes = [
         hidden: true
       }
     ]
-  },
+  },*/
   {
     path: '/brand',
     component: Layout,

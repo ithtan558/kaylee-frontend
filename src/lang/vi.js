@@ -1,5 +1,6 @@
 export default {
   route: {
+    report: 'Thống kê',
     serviceCategory: 'Loại dịch vụ',
     createCategoryService: 'Tạo loại dịch vụ',
     editCategoryService: 'Sửa loại dịch vụ',
@@ -93,7 +94,7 @@ export default {
     title: 'Đăng nhập',
     logIn: 'Đăng nhập',
     username: 'Username',
-    account: 'Email hoặc số điện thoại',
+    account: 'Số điện thoại',
     password: 'Mật khẩu',
     confirmpassword: 'Xác thực mật khẩu',
     any: 'Bất kỳ',
