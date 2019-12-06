@@ -1,5 +1,6 @@
 <template>
   <div class="login-container">
+    <div v-loading.fullscreen.lock="loading"></div>
     <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
       <div>
         <h2 class="text-center">Hệ thống quản lý Salon</h2>
@@ -129,13 +130,13 @@ export default {
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
               this.$router.push({ path: this.redirect || '/' })
-              this.loading = false
             })
             .catch((error) => {
               this.$notify({
                 message: error.response.data.message,
                 type: 'error'
               })
+            }).finally(() => {
               this.loading = false
             })
         } else {

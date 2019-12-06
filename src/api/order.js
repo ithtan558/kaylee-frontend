@@ -24,3 +24,29 @@ export function getCount(query) {
     params: query
   })
 }
+
+export function getTotal(query) {
+  return request({
+    url: '/report/get-total',
+    method: 'get',
+    params: query
+  })
+}
+
+
+export function getTotalByEmployeeAndDate(query) {
+  return request({
+    url: '/report/get-total-by-employee-date',
+    method: 'get',
+    params: query
+  })
+}
+
+export function getTotalByServiceAndDate(query) {
+  return request({
+    url: '/report/get-total-by-service-date',
+    method: 'get',
+    params: query
+  })
+}
+

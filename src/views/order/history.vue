@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <div v-loading.fullscreen.lock="loading"></div>
     <div class="createPost-main-container">
       <el-row :gutter="10">
         <el-col :xs="24" :sm="14">
@@ -75,7 +76,7 @@ export default {
       tableKey: 0,
       list: [],
       total: 0,
-      listLoading: true,
+      loading: false,
       listQuery: {
         page: 1,
         limit: 10,
@@ -92,14 +93,13 @@ export default {
   },
   methods: {
     getList() {
-      this.listLoading = true
+
+      this.loading = true
       fetchList(this.listQuery).then(response => {
-
         this.list = response.data.items
-
         this.total = response.data.total
-        // Just to simulate the time of the request
-        this.listLoading = false
+      }).finally(() => {
+        this.loading = false
       })
     }
   }

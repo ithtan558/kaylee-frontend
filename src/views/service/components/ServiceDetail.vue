@@ -1,5 +1,6 @@
 <template>
   <div class="createPost-container">
+    <div v-loading.fullscreen.lock="loading"></div>
     <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" label-width="120px"  label-position="top">
       <div class="createPost-main-container">
         <el-row>
@@ -138,6 +139,7 @@ export default {
   },
   methods: {
     fetchData(id) {
+      this.loading = true
       fetchService(id).then(response => {
         this.postForm = response.data
         if (response.data.image != null) {
@@ -148,6 +150,8 @@ export default {
         }
       }).catch(err => {
         console.log(err)
+      }).finally(() => {
+        this.loading = false
       })
     },
     getCategories() {
@@ -205,7 +209,7 @@ export default {
                 type: 'error'
               })
             }
-          }).then(() => {
+          }).finally(() => {
             this.loading = false
           })
         } else {

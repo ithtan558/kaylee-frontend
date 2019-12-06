@@ -1,5 +1,6 @@
 <template>
   <div class="createPost-container">
+    <div v-loading.fullscreen.lock="loading"></div>
     <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" label-width="120px"  label-position="top">
       <div class="createPost-main-container">
         <el-row>
@@ -124,6 +125,7 @@ export default {
   },
   methods: {
     fetchData(id) {
+      this.loading = true
       fetchBrand(id).then(response => {
         this.postForm = response.data
         if (response.data.image != null) {
@@ -134,6 +136,8 @@ export default {
         }
       }).catch(err => {
         console.log(err)
+      }).finally(() => {
+        this.loading = false
       })
     },
     getCities() {
@@ -195,11 +199,12 @@ export default {
                 type: 'error'
               })
             }
-          }).then(() => {
+          }).finally(() => {
             this.loading = false
           })
         } else {
           console.log('error submit!!')
+          this.loading = false
           return false
         }
       })
@@ -209,11 +214,14 @@ export default {
       this.id = id
     },
     confirmDelete() {
+      this.loading = true
       deleteItem(this.id).then(response => {
         this.$notify({
           message: response.message,
           type: 'success'
         })
+      }).finally(() => {
+        this.loading = false
       })
       this.dialogVisible = false
       this.$router.push({ path: '/brand/' })

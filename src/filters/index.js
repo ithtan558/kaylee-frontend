@@ -49,3 +49,10 @@ export function formatMoney(num) {
   }
 }
 
+export function formatDate(date) {
+  var m = ("0"+ (date.getMonth()+1)).slice(-2) // in javascript month start from 0.
+  var d = ("0"+ date.getDate()).slice(-2) // add leading zero
+  var y = date.getFullYear()
+  return  m +'-'+d+'-'+y
+}
+

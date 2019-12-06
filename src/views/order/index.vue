@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <div v-loading.fullscreen.lock="loading"></div>
     <div class="createPost-main-container">
       <el-row :gutter="10">
         <el-col :span="10" class="hidden-xs-only">
@@ -276,8 +277,8 @@ export default {
           element.image = process.env.VUE_APP_API + '/upload/images/' + element.image
         })
         this.total = response.data.total
-        // Just to simulate the time of the request
-        this.listLoading = false
+      }).finally(() => {
+        this.loading = false
       })
     },
     // Add Items to cart
@@ -293,7 +294,6 @@ export default {
         itemInCart[0].qty += 1
       }
 
-      console.log(this.cartItems)
       Cookies.set('cartItems', JSON.stringify(this.cartItems))
     }
   }

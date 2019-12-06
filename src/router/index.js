@@ -100,7 +100,7 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   { path: '*', redirect: '/404', hidden: true },
-  /*{
+  {
     path: '/report',
     component: Layout,
     redirect: 'noredirect',
@@ -115,7 +115,7 @@ export const asyncRoutes = [
         meta: { title: 'report', icon: 'chart', noCache: true, affix: true, roles: ['manager, brand_manager'] }
       }
     ]
-  },*/
+  },
   {
     path: '/order',
     component: Layout,

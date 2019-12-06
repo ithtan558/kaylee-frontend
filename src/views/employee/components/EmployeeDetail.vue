@@ -1,5 +1,6 @@
 <template>
   <div class="createPost-container">
+    <div v-loading.fullscreen.lock="loading"></div>
     <el-form ref="postForm" :model="postForm" class="form-container" label-width="120px"  label-position="top">
       <div class="createPost-main-container">
         <el-row>
@@ -112,6 +113,7 @@ export default {
   data() {
     return {
       postForm: Object.assign({}, defaultForm),
+      loading: false,
       roles: [],
       brands: [],
       imageFileList: [],
@@ -130,6 +132,7 @@ export default {
   },
   methods: {
     fetchData(id) {
+      this.loading = true
       fetchEmployee(id).then(response => {
         this.postForm = response.data
         this.postForm.gent
@@ -141,6 +144,8 @@ export default {
         }
       }).catch(err => {
         console.log(err)
+      }).finally(() => {
+        this.loading = false
       })
     },
     getBrands() {
@@ -190,7 +195,7 @@ export default {
                 type: 'error'
               })
             }
-          }).then(() => {
+          }).finally(() => {
             this.loading = false
           })
         } else {
@@ -204,11 +209,14 @@ export default {
       this.id = id
     },
     confirmDelete() {
+      this.loading = true
       deleteItem(this.id).then(response => {
         this.$notify({
           message: response.message,
           type: 'success'
         })
+      }).finally(() => {
+        this.loading = false
       })
       this.dialogVisible = false
       this.$router.push({ path: '/employee/' })

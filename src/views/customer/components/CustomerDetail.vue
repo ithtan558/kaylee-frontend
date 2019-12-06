@@ -1,5 +1,6 @@
 <template>
   <div class="createPost-container">
+    <div v-loading.fullscreen.lock="loading"></div>
     <el-form ref="postForm" :model="postForm" :rules="rules" class="form-container" label-width="120px"  label-position="top">
       <div class="createPost-main-container">
         <el-row>
@@ -74,131 +75,134 @@
 </template>
 
 <script>
-  import { fetchCustomer, create, deleteItem } from '@/api/customer'
-  import { fetchAll as fetchAllType } from '@/api/customerType'
+import { fetchCustomer, create, deleteItem } from '@/api/customer'
+import { fetchAll as fetchAllType } from '@/api/customerType'
 
-  const defaultForm = {
-    id: undefined,
-    type: '',
-    name: '',
-    phone: '',
-    email: '',
-    birthday: null,
-    image: null
-  }
+const defaultForm = {
+  id: undefined,
+  type: '',
+  name: '',
+  phone: '',
+  email: '',
+  birthday: null,
+  image: null
+}
 
-  export default {
-    name: 'CustomerDetail',
-    props: {
-      isEdit: {
-        type: Boolean,
-        default: false
-      }
-    },
-    data() {
-      return {
-        postForm: Object.assign({}, defaultForm),
-        loading: false,
-        rules: {
-        },
-        tempRoute: {},
-        imageFileList: [],
-        types: [],
-        dialogVisible: false
-      }
-    },
-    computed: {
-    },
-    created() {
-      if (this.isEdit) {
-        const id = this.$route.params && this.$route.params.id
-        this.fetchData(id)
-      } else {
-        this.postForm = Object.assign({}, defaultForm)
-      }
-      this.getTypes()
-      this.tempRoute = Object.assign({}, this.$route)
-    },
-    methods: {
-      getTypes() {
-        fetchAllType().then(response => {
-          response.data.forEach(element => {
-            this.types.push({
-              label: element.name,
-              value: element.id
-            })
+export default {
+  name: 'CustomerDetail',
+  props: {
+    isEdit: {
+      type: Boolean,
+      default: false
+    }
+  },
+  data() {
+    return {
+      postForm: Object.assign({}, defaultForm),
+      loading: false,
+      rules: {
+      },
+      tempRoute: {},
+      imageFileList: [],
+      types: [],
+      dialogVisible: false
+    }
+  },
+  computed: {
+  },
+  created() {
+    if (this.isEdit) {
+      const id = this.$route.params && this.$route.params.id
+      this.fetchData(id)
+    } else {
+      this.postForm = Object.assign({}, defaultForm)
+    }
+    this.getTypes()
+    this.tempRoute = Object.assign({}, this.$route)
+  },
+  methods: {
+    getTypes() {
+      fetchAllType().then(response => {
+        response.data.forEach(element => {
+          this.types.push({
+            label: element.name,
+            value: element.id
           })
-        }).catch(err => {
-          console.log(err)
         })
-      },
-      fetchData(id) {
-        fetchCustomer(id).then(response => {
-          this.postForm = response.data
-          if (response.data.image != null) {
-            this.imageFileList.push({
-              url: process.env.VUE_APP_API + process.env.VUE_APP_DIR_UPLOAD + response.data.image
+      }).catch(err => {
+        console.log(err)
+      })
+    },
+    fetchData(id) {
+      this.loading = true
+      fetchCustomer(id).then(response => {
+        this.postForm = response.data
+        if (response.data.image != null) {
+          this.imageFileList.push({
+            url: process.env.VUE_APP_API + process.env.VUE_APP_DIR_UPLOAD + response.data.image
+          })
+          console.log(this.imageFileList)
+        }
+      }).catch(err => {
+        console.log(err)
+      }).finally(() => {
+        this.loading = false
+      })
+    },
+    submitForm() {
+      this.postForm.display_time = parseInt(this.display_time / 1000)
+      this.$refs.postForm.validate(valid => {
+        if (valid) {
+          this.loading = true
+          const formData = new FormData()
+          formData.append('id', this.postForm.id)
+          formData.append('type_id', this.postForm.type_id)
+          formData.append('name', this.postForm.name)
+          formData.append('phone', this.postForm.phone)
+          formData.append('email', this.postForm.email)
+          formData.append('birthday', this.postForm.birthday)
+          formData.append('image', this.postForm.image)
+          create(this.isEdit, formData, this.postForm.id).then(response => {
+            this.$notify({
+              dangerouslyUseHTMLString: true,
+              message: response.message,
+              type: 'success'
             })
-            console.log(this.imageFileList)
-          }
-        }).catch(err => {
-          console.log(err)
-        })
-      },
-      submitForm() {
-        this.postForm.display_time = parseInt(this.display_time / 1000)
-        this.$refs.postForm.validate(valid => {
-          if (valid) {
-            this.loading = true
-            const formData = new FormData()
-            formData.append('id', this.postForm.id)
-            formData.append('type_id', this.postForm.type_id)
-            formData.append('name', this.postForm.name)
-            formData.append('phone', this.postForm.phone)
-            formData.append('email', this.postForm.email)
-            formData.append('birthday', this.postForm.birthday)
-            formData.append('image', this.postForm.image)
-            create(this.isEdit, formData, this.postForm.id).then(response => {
+
+            this.$router.push({ path: '/customer/' })
+          }).catch(error => {
+            if (error.response) {
               this.$notify({
                 dangerouslyUseHTMLString: true,
-                message: response.message,
-                type: 'success'
+                message: error.response.data.message,
+                type: 'error'
               })
-
-              this.$router.push({ path: '/customer/' })
-            }).catch(error => {
-              if (error.response) {
-                this.$notify({
-                  dangerouslyUseHTMLString: true,
-                  message: error.response.data.message,
-                  type: 'error'
-                })
-              }
-            }).then(() => {
-              this.loading = false
-            })
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-      },
-      showPopup(id) {
-        this.dialogVisible = true
-        this.id = id
-      },
-      confirmDelete() {
-        deleteItem(this.id).then(response => {
-          this.$notify({
-            message: response.message,
-            type: 'success'
+            }
+          }).finally(() => {
+            this.loading = false
           })
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    showPopup(id) {
+      this.dialogVisible = true
+      this.id = id
+    },
+    confirmDelete() {
+      deleteItem(this.id).then(response => {
+        this.$notify({
+          message: response.message,
+          type: 'success'
         })
-        this.dialogVisible = false
-        this.getList()
-      }
+      })
+      this.dialogVisible = false
+      this.getList()
     }
   }
+}
 </script>
 
 <style lang="scss" scoped>

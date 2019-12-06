@@ -1,5 +1,6 @@
 <template>
   <div class="register-container">
+    <div v-loading.fullscreen.lock="loading"></div>
     <el-form ref="postForm" :model="postForm" class="register-form" auto-complete="on" label-position="top" label-width="120px">
       <div class="createPost-main-container">
         <el-row>
@@ -83,6 +84,7 @@ export default {
         phone: '',
         password: ''
       },
+      loading: false,
       active: 0,
       cities: [],
       districts: []
@@ -153,7 +155,7 @@ export default {
                 type: 'error'
               })
             }
-          }).then(() => {
+          }).finally(() => {
             this.loading = false
           })
         } else {

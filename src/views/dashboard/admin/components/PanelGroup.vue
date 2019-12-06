@@ -2,15 +2,17 @@
   <div>
     <el-row :gutter="40" class="panel-group">
       <el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
-        <div class="card-panel" @click="showPopupLater">
-          <div class="card-panel-icon-wrapper icon-chart">
-            <svg-icon icon-class="chart" class-name="card-panel-icon" />
+        <router-link :to="'/report'">
+          <div class="card-panel">
+            <div class="card-panel-icon-wrapper icon-chart">
+              <svg-icon icon-class="chart" class-name="card-panel-icon" />
+            </div>
+            <div class="card-panel-description">
+              <div class="card-panel-text">Báo cáo doanh thu</div>
+              <count-to :start-val="0" :end-val="revenue.total_value" :duration="1000" class="card-panel-num" />
+            </div>
           </div>
-          <div class="card-panel-description">
-            <div class="card-panel-text">Báo cáo doanh thu</div>
-            <count-to :start-val="0" :end-val="100000" :duration="2600" class="card-panel-num" />
-          </div>
-        </div>
+        </router-link>
       </el-col>
       <el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
         <div class="card-panel" @click="showPopupLater">
@@ -161,8 +163,9 @@
 
 <script>
 import CountTo from 'vue-count-to'
+import { getDateRangeOfToday } from '@/common'
 import { getCount as countCustomer } from '@/api/customer'
-import { getCount as countOrder } from '@/api/order'
+import { getCount as countOrder, getTotal } from '@/api/order'
 
 export default {
   name: 'ServiceDetail',
@@ -179,7 +182,14 @@ export default {
     return {
       loading: false,
       countCustomer: 0,
-      countOrder: 0
+      countOrder: 0,
+      revenue_query: {
+        start_date: null,
+        end_date: null
+      },
+      revenue: {
+        total_value: 0
+      }
     }
   },
   computed: {
@@ -187,8 +197,16 @@ export default {
   created() {
     this.getCountCustomer()
     this.getCountOrder()
+    this.getTotal()
   },
   methods: {
+    getTotal() {
+      getTotal(this.revenue_query).then(response => {
+        this.revenue.total_value = response.data.total_value
+      }).catch(err => {
+        console.log(err)
+      })
+    },
     getCountCustomer() {
       countCustomer().then(response => {
         this.countCustomer = response.data

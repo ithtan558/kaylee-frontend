@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <div v-loading.fullscreen.lock="loading"></div>
     <div class="createPost-main-container">
       <el-row :gutter="10">
         <el-col :xs="24" :sm="14">
@@ -184,7 +185,7 @@ export default {
         }
       ],
       total: 0,
-      listLoading: true,
+      loading: false,
       cartItems: [],
       cartCustomer: [],
       cartEmployee: {},
@@ -263,7 +264,7 @@ export default {
             dangerouslyUseHTMLString: true, message: error.response.data.message, type: 'error'
           })
         }
-      }).then(() => {
+      }).finally(() => {
         this.loading = false
       })
     },
