@@ -2,7 +2,8 @@
   <div class="login-container">
     <div v-loading.fullscreen.lock="loading"></div>
     <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
-      <div>
+      <div class="text-center">
+        <img src="@/assets/images/logo.png" width="120px">
         <h2 class="text-center">Hệ thống quản lý Salon</h2>
       </div>
       <div>

@@ -8,8 +8,11 @@
             <div class="panel panel-flat">
               <div class="panel-heading">
                 <div class="customer-block-title select-inside-heading">
-                  <span>Tạo tài khoản KAYLEE của bạn</span>
-                  <span>Dùng miển phí trong 15 ngày</span>
+                  <div class="text-center">
+                    <img src="@/assets/images/logo.png" width="130px">
+                  </div>
+                  <span style="display: block">Tạo tài khoản của bạn</span>
+                  <span style="display: block">Dùng miển phí trong 15 ngày</span>
                 </div>
               </div>
               <div class="panel-body" style="position: relative">
@@ -185,6 +188,7 @@ export default {
   .register-container {
     display: table;
     margin: 10px auto;
+    width: 90%;
     .title {
       font-size: 14px;
       font-weight: bold;
