@@ -5,7 +5,7 @@
       <el-row>
         <el-col :span="24">
           <h3 class="text-center">Báo cáo doanh thu</h3>
-          <div class="mrb-15">
+          <div class="mrb-15 text-center">
             <el-select :default-first-option="true" v-model="brand_id" placeholder="Tất cả chi nhánh" clearables @change="resetByBrand">
               <el-option value="">Tất cả chi nhánh</el-option>
               <el-option
