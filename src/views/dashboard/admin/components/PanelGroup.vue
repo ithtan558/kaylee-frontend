@@ -15,19 +15,6 @@
         </router-link>
       </el-col>
       <el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
-        <div class="card-panel" @click="showPopupLater">
-          <div class="card-panel-icon-wrapper icon-calendar">
-            <svg-icon icon-class="calendar" class-name="card-panel-icon" />
-          </div>
-          <div class="card-panel-description">
-            <div class="card-panel-text">
-              {{ $t('booking') }}
-            </div>
-            <count-to :start-val="0" :end-val="0" :duration="2600" class="card-panel-num" />
-          </div>
-        </div>
-      </el-col>
-      <el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
         <div class="card-panel">
           <div class="card-panel-icon-wrapper icon-calculator">
             <svg-icon icon-class="calculator" class-name="card-panel-icon" />
@@ -48,6 +35,19 @@
               {{ $t('customer') }}
             </div>
             <count-to :start-val="0" :end-val="countCustomer" :duration="3200" class="card-panel-num" />
+          </div>
+        </div>
+      </el-col>
+      <el-col :xs="24" :sm="12" :lg="8" class="card-panel-col">
+        <div class="card-panel" @click="showPopupLater">
+          <div class="card-panel-icon-wrapper icon-calendar">
+            <svg-icon icon-class="calendar" class-name="card-panel-icon" />
+          </div>
+          <div class="card-panel-description">
+            <div class="card-panel-text">
+              {{ $t('booking') }}
+            </div>
+            <count-to :start-val="0" :end-val="0" :duration="2600" class="card-panel-num" />
           </div>
         </div>
       </el-col>
