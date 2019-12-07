@@ -4,9 +4,9 @@
     <div class="createPost-main-container">
       <el-row>
         <el-col :span="24">
-          <h3 class="text-center">Thống kê</h3>
+          <h3 class="text-center">Báo cáo doanh thu</h3>
           <div class="mrb-15">
-            <el-select :default-first-option="true" v-model="brand_id" placeholder="Tất cả chi nhánh" clearable style="width: 400px;" @change="resetByBrand">
+            <el-select :default-first-option="true" v-model="brand_id" placeholder="Tất cả chi nhánh" clearables @change="resetByBrand">
               <el-option value="">Tất cả chi nhánh</el-option>
               <el-option
                 v-for="item in brands"
