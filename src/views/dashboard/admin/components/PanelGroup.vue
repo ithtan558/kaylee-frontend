@@ -23,7 +23,7 @@
             <div class="card-panel-text">
               {{ $t('booking') }}
             </div>
-            <count-to :start-val="0" :end-val="3" :duration="2600" class="card-panel-num" />
+            <count-to :start-val="0" :end-val="0" :duration="2600" class="card-panel-num" />
           </div>
         </div>
       </el-col>
