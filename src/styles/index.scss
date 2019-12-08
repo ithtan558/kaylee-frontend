@@ -6,7 +6,7 @@
 @import './btn.scss';
 
 body {
-  font-size: 13px;
+  font-size: 16px;
   line-height: 1.5384616;
   height: 100%;
   -moz-osx-font-smoothing: grayscale;
@@ -108,7 +108,7 @@ code {
   margin-bottom: 20px;
   display: block;
   line-height: 36px;
-  font-size: 15px;
+  font-size: 16px;
   font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
 
   a {
@@ -240,7 +240,7 @@ code {
   margin-right: 0px;
 }
 .font-size-14 {
-  font-size: 14px;
+  font-size: 16px;
 }
 .font-size-30 {
   font-size: 30px;
@@ -250,6 +250,7 @@ code {
 .el-form-item {
   margin-bottom: 15px;
   .el-form-item__label {
+    font-size: 16px;
     padding: 0px;
   }
   .el-date-editor {
@@ -273,7 +274,7 @@ code {
     background: #fff!important;
     .customer-block-title {
       font-weight: 700;
-      font-size: 14px;
+      font-size: 16px;
       .mega-menu-wide {
         float: right;
         font-size: 13px;
@@ -328,7 +329,7 @@ code {
         }
         p {
           float: right;
-          font-size: 14px;
+          font-size: 16px;
           font-weight: 700;
           margin: 0;
           padding: 0;

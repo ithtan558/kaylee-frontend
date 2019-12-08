@@ -175,9 +175,9 @@
             <el-col :xs="24">
               <el-input class="mrb-10 text-center" v-model="createCustomer.phone" placeholder="Nhập số điện thoại"></el-input>
             </el-col>
-            <el-col :xs="24">
+            <!--<el-col :xs="24">
               <el-input class="mrb-10 text-center" v-model="createCustomer.email" placeholder="Nhập email (nếu có)"></el-input>
-            </el-col>
+            </el-col>-->
             <el-col :xs="24" class="text-center">
               <el-button class="mrb-10" type="primary" @click="setCustomerForCart(createCustomer), popupNewCustomerVisible = false">Tiếp theo</el-button>
             </el-col>
@@ -231,7 +231,7 @@ export default {
       createCustomer: {
         name: '',
         phone: '',
-        email: ''
+        /*email: ''*/
       },
       popupKindOfCustomerVisible: false,
       popupFindCustomerVisible: false,

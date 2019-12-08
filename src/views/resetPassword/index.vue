@@ -258,7 +258,7 @@ $light_gray:#eee;
   }
 
   .tips {
-    font-size: 14px;
+    font-size: 16px;
     color: #fff;
     margin-bottom: 10px;
 

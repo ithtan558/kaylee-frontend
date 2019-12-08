@@ -21,9 +21,9 @@
             <el-form-item label="Số điện thoại:" required>
               <el-input v-model="postForm.phone" size="small" clearable remote placeholder="Số điện thoại" />
             </el-form-item>
-            <el-form-item label="Email:">
+            <!--<el-form-item label="Email:">
               <el-input v-model="postForm.email" size="small" clearable remote placeholder="Email" />
-            </el-form-item>
+            </el-form-item>-->
             <el-form-item label="Năm sinh:">
               <el-date-picker
                 v-model="postForm.birthday"
@@ -83,7 +83,7 @@ const defaultForm = {
   type: '',
   name: '',
   phone: '',
-  email: '',
+  /*email: '',*/
   birthday: null,
   image: null
 }
@@ -159,7 +159,7 @@ export default {
           formData.append('type_id', this.postForm.type_id)
           formData.append('name', this.postForm.name)
           formData.append('phone', this.postForm.phone)
-          formData.append('email', this.postForm.email)
+          /*formData.append('email', this.postForm.email)*/
           formData.append('birthday', this.postForm.birthday)
           formData.append('image', this.postForm.image)
           create(this.isEdit, formData, this.postForm.id).then(response => {

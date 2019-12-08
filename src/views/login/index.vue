@@ -45,15 +45,15 @@
             </el-form-item>
           </el-tooltip>
           <el-row class="margin-bottom-15">
-            <span class="margin-right-0 link-type font-size-14">{{ $t('forgot_password.title') }}</span>
+            <span class="margin-right-0 link-type">{{ $t('forgot_password.title') }}</span>
             <el-button class="fr" :loading="loading" type="primary" @click.native.prevent="handleLogin">
               {{ $t('login.logIn') }}
             </el-button>
           </el-row>
           <el-row class="mrt-15 text-center">
-            <span class="margin-right-0 font-size-14">Bạn chưa có tài khoản?</span>
+            <span class="margin-right-0">Bạn chưa có tài khoản?</span>
             <router-link :to="'/register'">
-              <span class="margin-right-0 link-type font-size-14 underline">Đăng ký</span>
+              <span class="margin-right-0 link-type underline">Đăng ký</span>
             </router-link>
           </el-row>
         </div>
@@ -246,7 +246,7 @@ $light_gray:#eee;
   }
 
   .tips {
-    font-size: 14px;
+    font-size: 16px;
     color: #fff;
     margin-bottom: 10px;
 

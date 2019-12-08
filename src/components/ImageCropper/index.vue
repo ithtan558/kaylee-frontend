@@ -999,7 +999,7 @@ export default {
       .vue-image-crop-upload .vicp-wrap .vicp-step1 .vicp-drop-area .vicp-hint {
         display: block;
         padding: 15px;
-        font-size: 14px;
+        font-size: 16px;
         color: #666;
         line-height: 30px; }
       .vue-image-crop-upload .vicp-wrap .vicp-step1 .vicp-drop-area .vicp-no-supported-hint {
@@ -1014,7 +1014,7 @@ export default {
         background-color: #eee;
         text-align: center;
         color: #666;
-        font-size: 14px; }
+        font-size: 16px; }
       .vue-image-crop-upload .vicp-wrap .vicp-step1 .vicp-drop-area:hover {
         cursor: pointer;
         border-color: rgba(0, 0, 0, 0.1);
@@ -1245,7 +1245,7 @@ export default {
               position: absolute;
               bottom: -30px;
               width: 100%;
-              font-size: 14px;
+              font-size: 16px;
               color: #bbb;
               display: block;
               text-align: center; }
@@ -1334,7 +1334,7 @@ export default {
         line-height: 36px;
         text-align: center;
         cursor: pointer;
-        font-size: 14px;
+        font-size: 16px;
         color: #4a7;
         border-radius: 2px;
         overflow: hidden;
@@ -1347,7 +1347,7 @@ export default {
     .vue-image-crop-upload .vicp-wrap .vicp-error,
     .vue-image-crop-upload .vicp-wrap .vicp-success {
       display: block;
-      font-size: 14px;
+      font-size: 16px;
       line-height: 24px;
       height: 24px;
       color: #d10;
