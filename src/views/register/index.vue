@@ -190,7 +190,7 @@ export default {
     margin: 10px auto;
     width: 90%;
     .title {
-      font-size: 16px;
+      font-size: 18px;
       font-weight: bold;
       margin: 10px 0px 5px 0px;
     }

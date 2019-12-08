@@ -131,7 +131,7 @@
   }
   .info-customer, .info-employee {
     .body {
-      font-size: 14px;
+      font-size: 16px;
       border-radius: 2px;
       border: 1px solid #DCDFE6;
       margin-bottom: 10px;

@@ -100,7 +100,7 @@ export default {
   padding: 10px 5px;
   font-style: italic;
   margin: 0 30px;
-  font-size: 14px;
+  font-size: 16px;
   border-top: 1px solid rgba(255, 255, 255, 0.5);
 }
 

@@ -126,7 +126,7 @@
       </el-row>
     </div>
     <div id="footer">
-      <span class="fl"><b class="color-red">{{cartItems.length}}</b> Dịch vụ và sản phẩm được chọn</span>
+      <span class="fl"><b class="color-red">{{cartItems.length}}</b> Dịch vụ được chọn</span>
       <el-button class="fr" size="small" type="primary" @click="showPopupKindOfCustomer">{{ $t('start')}}</el-button>
     </div>
     <!-- Select kind of customer popup -->
@@ -295,6 +295,11 @@ export default {
       }
 
       Cookies.set('cartItems', JSON.stringify(this.cartItems))
+      this.$notify({
+        dangerouslyUseHTMLString: true,
+        message: 'Dịch vụ được thêm thành công',
+        type: 'success'
+      })
     }
   }
 }

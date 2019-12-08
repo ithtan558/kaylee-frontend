@@ -241,7 +241,7 @@ export default {
   .card-panel {
     height: 108px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     position: relative;
     overflow: hidden;
     color: #666;
@@ -291,7 +291,7 @@ export default {
       .card-panel-text {
         line-height: 18px;
         color: rgba(0, 0, 0, 0.45);
-        font-size: 16px;
+        font-size: 18px;
         margin-bottom: 12px;
       }
       .card-panel-num {
@@ -311,7 +311,7 @@ export default {
     display: table;
     height: 108px;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     position: relative;
     overflow: hidden;
     color: #666;
@@ -358,7 +358,7 @@ export default {
       .card-panel-text {
         line-height: 18px;
         color: rgba(0, 0, 0, 0.45);
-        font-size: 16px;
+        font-size: 18px;
       }
     }
     .card-panel-num {

@@ -246,7 +246,7 @@ $light_gray:#eee;
   }
 
   .tips {
-    font-size: 16px;
+    font-size: 18px;
     color: #fff;
     margin-bottom: 10px;
 
@@ -291,7 +291,7 @@ $light_gray:#eee;
     position: absolute;
     right: 10px;
     top: 7px;
-    font-size: 16px;
+    font-size: 18px;
     color: $dark_gray;
     cursor: pointer;
     user-select: none;

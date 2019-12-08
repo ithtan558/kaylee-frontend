@@ -130,7 +130,7 @@ export default {
 .list-complete-item {
   cursor: pointer;
   position: relative;
-  font-size: 16px;
+  font-size: 18px;
   padding: 5px 12px;
   margin-top: 4px;
   border: 1px solid #bfcbd9;

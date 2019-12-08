@@ -83,7 +83,7 @@ export default {
       color: #484848;
     }
     .list-unstyled {
-      font-size: 16px;
+      font-size: 18px;
       li {
         padding-bottom: 5px;
       }
