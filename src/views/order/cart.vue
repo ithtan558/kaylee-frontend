@@ -49,7 +49,7 @@
                       </div>
                     </div>
                   </el-col>
-                  <el-col :span="24" class="list-discount">
+                  <el-col :span="24" class="list-discount no-padding">
                     <el-input v-model="discount" @change="updateTotal()" placeholder="Giảm giá:">
                       <template slot="append">%</template>
                     </el-input>
@@ -58,7 +58,7 @@
                   <el-col :span="24" class="total text-right">
                     <span>Tổng tiền : {{total_before_discount | formatMoney}}</span>
                     <span>Giảm giá : {{discount_value | formatMoney}}</span>
-                    <span>Tiền phải trả : {{total | formatMoney}}</span>
+                    <span class="color-red">Tiền phải trả : {{total | formatMoney}}</span>
                   </el-col>
                 </div>
               </el-form-item>

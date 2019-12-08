@@ -101,7 +101,7 @@ export const constantRoutes = [
 export const asyncRoutes = [
   { path: '*', redirect: '/404', hidden: true },
   {
-    path: '/report',
+    path: '/order',
     component: Layout,
     redirect: 'noredirect',
     meta: {
@@ -110,9 +110,9 @@ export const asyncRoutes = [
     children: [
       {
         path: '',
-        component: () => import('@/views/report/index'),
-        name: 'Thống kê',
-        meta: { title: 'report', icon: 'chart', noCache: true, affix: true, roles: ['brand_manager'] }
+        component: () => import('@/views/order/index'),
+        name: 'Tạo đơn hàng',
+        meta: { title: 'Tạo đơn hàng', icon: 'calculator', noCache: true, affix: true, roles: [ 'brand_manager']  }
       }
     ]
   },
@@ -133,17 +133,27 @@ export const asyncRoutes = [
         meta: { title: 'historyOrder', noCache: true, affix: true, roles: [ 'brand_manager']  }
       },
       {
-        path: '',
-        component: () => import('@/views/order/index'),
-        name: 'Tạo đơn hàng',
-        meta: { title: 'Tạo đơn hàng', noCache: true, affix: true, roles: [ 'brand_manager']  }
-      },
-      {
         path: 'cart',
         component: () => import('@/views/order/cart'),
         name: 'Giỏ hàng',
         meta: { title: 'cart', icon: 'guide', noCache: true, affix: true, roles: [ 'brand_manager']  },
         hidden: true
+      }
+    ]
+  },
+  {
+    path: '/report',
+    component: Layout,
+    redirect: 'noredirect',
+    meta: {
+      roles: ['brand_manager']
+    },
+    children: [
+      {
+        path: '',
+        component: () => import('@/views/report/index'),
+        name: 'Thống kê',
+        meta: { title: 'report', icon: 'chart', noCache: true, affix: true, roles: ['brand_manager'] }
       }
     ]
   },
