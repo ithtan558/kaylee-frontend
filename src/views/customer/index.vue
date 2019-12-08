@@ -42,7 +42,7 @@
     padding: 10px;
   }
   .customer-name {
-    font-size: 12px;
+    font-size: 14px;
     color: #4a90e2;
     word-break: break-word;
     margin: 5px;
@@ -51,7 +51,7 @@
   }
   .customer-phone {
     margin: 5px;
-    font-size: 12px;
+    font-size: 14px;
   }
 </style>
 <script>

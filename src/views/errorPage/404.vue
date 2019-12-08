@@ -194,7 +194,7 @@ export default {
       animation-fill-mode: forwards;
     }
     &__info {
-      font-size: 13px;
+      font-size: 15px;
       line-height: 21px;
       color: grey;
       opacity: 0;

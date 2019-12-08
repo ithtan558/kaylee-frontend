@@ -241,7 +241,7 @@ export default {
   .card-panel {
     height: 108px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
     overflow: hidden;
     color: #666;
@@ -311,7 +311,7 @@ export default {
     display: table;
     height: 108px;
     cursor: pointer;
-    font-size: 12px;
+    font-size: 14px;
     position: relative;
     overflow: hidden;
     color: #666;

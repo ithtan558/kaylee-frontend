@@ -27,7 +27,7 @@
 <style lang="scss" scoped>
   .employee-item {
     padding: 10px;
-    font-size: 13px;
+    font-size: 15px;
     border-radius: 2px;
     border: 1px solid #DCDFE6;
     margin-bottom: 10px;
