@@ -40,10 +40,10 @@
                       </div>
                       <div class="qty-action">
                         <div class="qty fl">
-                          <el-input-number size="mini" v-model="item.qty" @change="updateTotal"></el-input-number>
+                          <el-input-number size="small" v-model="item.qty" @change="updateTotal"></el-input-number>
                         </div>
                         <div class="action fr">
-                          <el-button size="mini" icon="el-icon-delete" @click="removeItemCart(item)"></el-button>
+                          <el-button size="small" icon="el-icon-delete" @click="removeItemCart(item)"></el-button>
                         </div>
                         <br class="clearmini" />
                       </div>
@@ -63,10 +63,10 @@
               </el-form-item>
               <el-form-item class="text-center">
                 <router-link :to="'/order'">
-                  <el-button icon="el-icon-back" size="mini" type="info">Quay lại</el-button>
+                  <el-button icon="el-icon-back" size="small" type="info">Quay lại</el-button>
                 </router-link>
-                <el-button icon="el-icon-delete" size="mini" type="danger" @click="removeCart">Xóa đơn hàng</el-button>
-                <el-button icon="el-icon-check" size="mini" type="primary" @click="submitForm()">Thanh toán</el-button>
+                <el-button icon="el-icon-delete" size="small" type="danger" @click="removeCart">Xóa đơn hàng</el-button>
+                <el-button icon="el-icon-check" size="small" type="primary" @click="submitForm()">Thanh toán</el-button>
               </el-form-item>
             </el-form>
           </el-container>

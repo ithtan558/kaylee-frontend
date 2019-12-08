@@ -54,9 +54,9 @@
                   <el-input v-model="postForm.password" placeholder="Mật khẩu đăng nhập" type="password" auto-complete="on"/>
                 </el-form-item>
                 <el-form-item class="text-center">
-                  <el-button icon="el-icon-check" size="mini" type="primary" @click="submitForm">Đồng ý</el-button>
+                  <el-button icon="el-icon-check" size="small" type="primary" @click="submitForm">Đồng ý</el-button>
                   <router-link :to="'/login'">
-                    <el-button icon="el-icon-back" size="mini" type="info">Quay lại</el-button>
+                    <el-button icon="el-icon-back" size="small" type="info">Quay lại</el-button>
                   </router-link>
                 </el-form-item>
               </div>

@@ -77,9 +77,9 @@
                   <br class="clear" />
                 </div>
                 <div class="order-total-checkout-buttons mrt-10">
-                  <el-button class="fl" icon="el-icon-delete" size="mini" type="danger">{{ $t('cancel')}}</el-button>
-                  <el-button class="fr" icon="el-icon-money" size="mini" type="primary">{{ $t('payment')}}</el-button>
-                  <el-button class="fr" icon="el-icon-printer" size="mini" type="primary">{{ $t('printOrder')}}</el-button>
+                  <el-button class="fl" icon="el-icon-delete" size="small" type="danger">{{ $t('cancel')}}</el-button>
+                  <el-button class="fr" icon="el-icon-money" size="small" type="primary">{{ $t('payment')}}</el-button>
+                  <el-button class="fr" icon="el-icon-printer" size="small" type="primary">{{ $t('printOrder')}}</el-button>
                   <br class="clear" />
                 </div>
               </div>
@@ -102,7 +102,7 @@
                       <div class="product-name-action">
                         <div class="product-name fl">{{item.name}}</div>
                         <div class="product-action fr">
-                          <el-button size="mini" type="primary" @click="addToCart(item)">Chọn</el-button>
+                          <el-button size="small" type="primary" @click="addToCart(item)">Chọn</el-button>
                         </div>
                         <br class="clear" />
                       </div>
@@ -127,7 +127,7 @@
     </div>
     <div id="footer">
       <span class="fl"><b class="color-red">{{cartItems.length}}</b> Dịch vụ và sản phẩm được chọn</span>
-      <el-button class="fr" size="mini" type="primary" @click="showPopupKindOfCustomer">{{ $t('start')}}</el-button>
+      <el-button class="fr" size="small" type="primary" @click="showPopupKindOfCustomer">{{ $t('start')}}</el-button>
     </div>
     <!-- Select kind of customer popup -->
     <el-dialog :visible.sync="popupKindOfCustomerVisible" width="80%">

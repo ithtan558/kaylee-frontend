@@ -49,11 +49,11 @@
         <div class="clearfix" />
         <br>
         <el-form-item class="text-center">
-          <el-button icon="el-icon-check" size="mini" type="primary" @click="submitForm">Đồng ý</el-button>
+          <el-button icon="el-icon-check" size="small" type="primary" @click="submitForm">Đồng ý</el-button>
           <router-link :to="'/brand'">
-            <el-button icon="el-icon-back" size="mini" type="info">Quay lại</el-button>
+            <el-button icon="el-icon-back" size="small" type="info">Quay lại</el-button>
           </router-link>
-          <el-button icon="el-icon-delete" v-if="postForm.id" type="danger" size="mini" @click="showPopup(postForm.id)">Xóa</el-button>
+          <el-button icon="el-icon-delete" v-if="postForm.id" type="danger" size="small" @click="showPopup(postForm.id)">Xóa</el-button>
         </el-form-item>
       </div>
     </el-form>
