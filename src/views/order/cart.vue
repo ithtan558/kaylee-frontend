@@ -40,7 +40,7 @@
                       </div>
                       <div class="qty-action">
                         <div class="qty fl">
-                          <el-input-number size="small" v-model="item.qty" @change="updateTotal"></el-input-number>
+                          <el-input-number :min="1" :max="5" size="small" v-model="item.qty" @change="updateTotal"></el-input-number>
                         </div>
                         <div class="action fr">
                           <el-button size="small" icon="el-icon-delete" @click="removeItemCart(item)"></el-button>
@@ -50,14 +50,15 @@
                     </div>
                   </el-col>
                   <el-col :span="24" class="list-discount">
-                    <span>Giảm giá: </span>
-                    <el-input v-model="discount" @change="updateTotal()">
+                    <el-input v-model="discount" @change="updateTotal()" placeholder="Giảm giá:">
                       <template slot="append">%</template>
                     </el-input>
                     <br class="clear">
                   </el-col>
                   <el-col :span="24" class="total text-right">
-                    <span><b class="color-red">Tổng tiền : {{total | formatMoney}}</b></span>
+                    <span>Tổng tiền : {{total_before_discount | formatMoney}}</span>
+                    <span>Giảm giá : {{discount_value | formatMoney}}</span>
+                    <span>Tiền phải trả : {{total | formatMoney}}</span>
                   </el-col>
                 </div>
               </el-form-item>
@@ -145,7 +146,7 @@
     }
   }
   .qty-action {
-    padding: 0px 10px;
+    padding: 5px 10px;
     margin-top: 8px;
   }
   .el-input--mini {
@@ -157,6 +158,12 @@
   .list-discount {
     button {
       margin-right: 5px;
+    }
+  }
+  .total {
+    span {
+      display: block;
+      line-height: 30px;
     }
   }
 </style>
@@ -193,7 +200,9 @@ export default {
         keyword: null
       },
       employees: [],
-      discount: 0,
+      discount: null,
+      discount_value: 0,
+      total_before_discount: 0,
       message: '',
       popupShowStatusOrderVisible: false,
       popupFindEmployeeVisible: false
@@ -202,7 +211,7 @@ export default {
   created() {
     this.cartItems = JSON.parse(Cookies.get('cartItems'))
     this.cartItems.forEach(item => {
-      this.total += item.price + item.qty
+      this.total_before_discount += item.price + item.qty
     })
     this.cartCustomer = JSON.parse(Cookies.get('cartCustomer'))
   },
@@ -220,14 +229,14 @@ export default {
       })
     },
     updateTotal() {
-      console.log('123')
-      this.total = 0
+      this.total_before_discount = 0
       this.cartItems.forEach(item => {
-        this.total += item.price * item.qty
+        this.total_before_discount += item.price * item.qty
       })
       // Minus for discount
       if (this.discount > 0) {
-        this.total = this.total - ((this.total * this.discount)/100)
+        this.total = this.total_before_discount - ((this.total_before_discount * this.discount)/100)
+        this.discount_value = ((this.total_before_discount * this.discount)/100)
       }
     },
     removeItemCart(itemCart) {

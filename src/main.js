@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import money from 'v-money'
 
 import Cookies from 'js-cookie'
 
@@ -41,6 +42,7 @@ new Vue({
   render: h => h(App)
 })
 window.Vue = Vue
+Vue.use(money, {precision: 4})
 
 Vue.mixin({
   methods: {

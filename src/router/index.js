@@ -105,14 +105,14 @@ export const asyncRoutes = [
     component: Layout,
     redirect: 'noredirect',
     meta: {
-      roles: ['manager, brand_manager']
+      roles: ['brand_manager']
     },
     children: [
       {
         path: '',
         component: () => import('@/views/report/index'),
         name: 'Thống kê',
-        meta: { title: 'report', icon: 'chart', noCache: true, affix: true, roles: ['manager, brand_manager'] }
+        meta: { title: 'report', icon: 'chart', noCache: true, affix: true, roles: ['brand_manager'] }
       }
     ]
   },

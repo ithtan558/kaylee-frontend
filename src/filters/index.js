@@ -43,7 +43,8 @@ export function toThousandFilter(num) {
 
 export function formatMoney(num) {
   if (num && num !== 0 && num !== null) {
-    return num.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
+    const val = (num/1).toFixed(0).replace('.', ',')
+    return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
   } else {
     return num
   }

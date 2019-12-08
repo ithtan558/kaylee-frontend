@@ -37,7 +37,7 @@
               </el-input>
             </el-form-item>
             <el-form-item label="Giá:" required>
-              <el-input type="number" v-model="postForm.price" size="small" clearable remote placeholder="Giá">
+              <el-input type="text" v-model="postForm.price" size="small" clearable remote placeholder="Giá">
                 <template slot="append">VND</template>
               </el-input>
             </el-form-item>
@@ -137,6 +137,17 @@ export default {
     this.getBrands()
     this.tempRoute = Object.assign({}, this.$route)
   },
+  watch: {
+    'postForm.price': {
+      immediate: true,
+      handler(newVal) {
+        if (newVal) {
+          const result = newVal.toString().replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+          Vue.nextTick(() => this.postForm.price = result)
+        }
+      }
+    }
+  },
   methods: {
     fetchData(id) {
       this.loading = true
@@ -191,7 +202,8 @@ export default {
           formData.append('brand_ids', this.postForm.brand_ids)
           formData.append('category_id', this.postForm.category_id)
           formData.append('time', this.postForm.time)
-          formData.append('price', this.postForm.price)
+          const price = this.postForm.price
+          formData.append('price', price.replace(/[^0-9]/g, ''))
           formData.append('image', this.postForm.image)
           create(this.isEdit, formData, this.postForm.id).then(response => {
             this.$notify({
