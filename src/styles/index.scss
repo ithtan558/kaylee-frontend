@@ -462,7 +462,7 @@ ul {
   font-size: 16px;
 }
 .el-submenu__title {
-  font-size: 16px;
+  font-size: 18px;
 }
 .el-button--small {
   font-size: 14px;
@@ -475,6 +475,8 @@ ul {
 }
 .el-dropdown-menu--medium .el-dropdown-menu__item {
   font-size: 18px;
+  height: 36px;
+  line-height: 36px;
 }
 @media screen and (max-width: 600px) {
   .pagination-container {

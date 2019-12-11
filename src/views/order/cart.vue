@@ -111,7 +111,7 @@
           </el-col>
           <el-col :xs="24" class="mrb-10 text-center">
             <router-link :to="'/order'">
-              <el-button>Tiếp tục thu ngân</el-button>
+              <el-button>Tạo đơn hàng</el-button>
             </router-link>
           </el-col>
         </el-row>

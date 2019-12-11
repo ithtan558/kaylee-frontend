@@ -32,7 +32,7 @@
               </el-select>
             </el-form-item>
             <el-form-item label="Thời gian phục vụ:" required>
-              <el-input v-model="postForm.time" size="small" clearable remote placeholder="Thời gian phục vụ">
+              <el-input type="number" v-model="postForm.time" size="small" clearable remote placeholder="Thời gian phục vụ">
                 <template slot="append">Phút</template>
               </el-input>
             </el-form-item>
