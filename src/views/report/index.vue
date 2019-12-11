@@ -19,7 +19,7 @@
           <el-card class="box-card mrb-10">
             <div slot="header" class="clearfix">
               <span>{{revenue.daterange}}</span>
-              <el-select filterable remote :default-first-option="true" v-model="revenue.type" @change="getTotal">
+              <el-select filterable remote :default-first-option="true" v-model="revenue.type" @change="getTotal" style="width: 100px;">
                 <el-option
                   v-for="item in dates"
                   :key="item.value"
@@ -35,7 +35,7 @@
           <el-card class="box-card mrb-10">
             <div slot="header" class="clearfix">
               <span>Doanh thu theo nhân viên</span>
-              <el-select filterable remote :default-first-option="true" v-model="revenue_employee.type"  @change="getTotalByEmployeeAndDate">
+              <el-select filterable remote :default-first-option="true" v-model="revenue_employee.type"  @change="getTotalByEmployeeAndDate" style="width: 100px;">
                 <el-option
                   v-for="item in dates"
                   :key="item.value"
@@ -53,7 +53,7 @@
           <el-card class="box-card mrb-10">
             <div slot="header" class="clearfix">
               <span>Doanh thu theo dịch vụ</span>
-              <el-select filterable remote :default-first-option="true" v-model="revenue_service.type"  @change="getTotalByServiceAndDate">
+              <el-select filterable remote :default-first-option="true" v-model="revenue_service.type"  @change="getTotalByServiceAndDate" style="width: 100px;">
                 <el-option
                   v-for="item in dates"
                   :key="item.value"

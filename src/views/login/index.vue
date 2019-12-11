@@ -3,7 +3,7 @@
     <div v-loading.fullscreen.lock="loading"></div>
     <el-form ref="loginForm" :model="loginForm" class="login-form" auto-complete="on" label-position="left">
       <div class="text-center">
-        <img src="@/assets/images/logo.png" width="120px">
+        <img src="@/assets/images/logo.png" width="150px">
         <h2 class="text-center">Hệ thống quản lý Salon</h2>
       </div>
       <div>
@@ -44,9 +44,9 @@
               </span>
             </el-form-item>
           </el-tooltip>
-          <el-row class="margin-bottom-15">
-            <span class="margin-right-0 link-type">{{ $t('forgot_password.title') }}</span>
-            <el-button class="fr" :loading="loading" type="primary" @click.native.prevent="handleLogin">
+          <el-row class="margin-bottom-15 text-center">
+            <!--<span class="margin-right-0 link-type">{{ $t('forgot_password.title') }}</span>-->
+            <el-button size="medium" :loading="loading" type="primary" @click.native.prevent="handleLogin">
               {{ $t('login.logIn') }}
             </el-button>
           </el-row>
