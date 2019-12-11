@@ -474,9 +474,9 @@ ul {
   font-size: 16px;
 }
 .el-dropdown-menu--medium .el-dropdown-menu__item, .el-input--large .el-input__inner {
-  font-size: 16px;
-  height: 40px;
-  line-height: 40px;
+  font-size: 16px !important;;
+  height: 40px !important;
+  line-height: 40px !important;
 }
 .box-card .el-select input {
   font-size: 16px;
